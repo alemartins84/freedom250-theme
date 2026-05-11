@@ -924,7 +924,7 @@ html.f250-editor-mode .f250-groups-only {
 .f250-page .f250-washington-bg {
   position: absolute;
   inset: 0;
-  background-image: url("https://assets.swoogo.com/uploads/full/6999738-6a0171218d3b8.jpg");
+  background-image: url("https://assets.swoogo.com/uploads/full/6999753-6a0172b75f7fb.jpg");
   background-size: cover;
   background-position: center center;
   transform: scale(1.02);
@@ -938,8 +938,8 @@ html.f250-editor-mode .f250-groups-only {
   background:
     linear-gradient(
       90deg,
-      rgba(5,10,24,0.88) 0%,
-      rgba(5,10,24,0.72) 38%,
+      rgba(11, 23, 54, 0.88) 0%,
+      rgba(8, 16, 39, 0.72) 38%,
       rgba(5,10,24,0.34) 70%,
       rgba(5,10,24,0.18) 100%
     ),
