@@ -1131,6 +1131,129 @@ html.f250-editor-mode .f250-groups-only {
   filter: invert(1) brightness(0.2);
 }
 
+/* America / I AM Race Transition
+--------------------------------------------------------------------------------*/
+
+.f250-page .f250-america-word {
+  position: relative;
+  overflow: hidden;
+  background: var(--f250-cream);
+  padding: 70px 20px;
+  text-align: center;
+}
+
+.f250-page .f250-america-word::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(192,138,58,0.08), transparent 38%),
+    radial-gradient(circle at 20% 80%, rgba(10,49,97,0.05), transparent 32%);
+  pointer-events: none;
+}
+
+.f250-page .f250-america-word-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.f250-page .f250-america-word-stage {
+  position: relative;
+  width: min(720px, 95vw);
+  height: 90px;
+  margin: 22px auto 0;
+  font-family: var(--font-heading);
+  font-size: clamp(34px, 5vw, 72px);
+  font-weight: 500;
+  color: var(--f250-navy);
+  letter-spacing: 0.08em;
+}
+
+.f250-page .f250-letter {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  opacity: 0.82;
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.75),
+    0 0 24px rgba(199,162,90,0.12);
+  animation: f250RevealAmerica 16s ease-in-out infinite;
+}
+
+/* Initial positions = I AM RACE */
+/* End positions = AMERICA */
+.f250-page .f250-l1 { --start:-300px; --end:100px; animation-delay:0s; }    /* I */
+.f250-page .f250-l2 { --start:-205px; --end:240px; animation-delay:.05s; }  /* A */
+.f250-page .f250-l3 { --start:-110px; --end:-175px; animation-delay:.1s; }  /* M */
+.f250-page .f250-l4 { --start:25px;   --end:0px; animation-delay:.15s; }    /* R */
+.f250-page .f250-l5 { --start:130px;  --end:-270px; animation-delay:.2s; }  /* A */
+.f250-page .f250-l6 { --start:225px;  --end:160px; animation-delay:.25s; }  /* C */
+.f250-page .f250-l7 { --start:320px;  --end:-75px; animation-delay:.3s; }   /* E */
+
+@keyframes f250RevealAmerica {
+  0%, 26% {
+    transform: translateX(var(--start));
+    opacity: 0.82;
+    filter: blur(0);
+  }
+
+  40% {
+    opacity: 0.22;
+    filter: blur(2px);
+  }
+
+  56%, 88% {
+    transform: translateX(var(--end));
+    opacity: 0.88;
+    filter: blur(0);
+  }
+
+  100% {
+    transform: translateX(var(--start));
+    opacity: 0.82;
+    filter: blur(0);
+  }
+}
+
+.f250-page .f250-america-caption {
+  margin: 10px auto 0;
+  max-width: 520px;
+  color: var(--f250-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+@media (max-width: 767px) {
+  .f250-page .f250-america-word {
+    padding: 56px 18px;
+  }
+
+  .f250-page .f250-america-word-stage {
+    height: 72px;
+    font-size: clamp(30px, 10vw, 48px);
+  }
+
+  .f250-page .f250-letter {
+    top: 10px;
+  }
+
+  .f250-page .f250-l1 { --start:-135px; --end:42px; }
+  .f250-page .f250-l2 { --start:-92px;  --end:100px; }
+  .f250-page .f250-l3 { --start:-50px;  --end:-75px; }
+  .f250-page .f250-l4 { --start:10px;   --end:0px; }
+  .f250-page .f250-l5 { --start:58px;   --end:-118px; }
+  .f250-page .f250-l6 { --start:102px;  --end:72px; }
+  .f250-page .f250-l7 { --start:145px;  --end:-32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .f250-page .f250-letter {
+    animation: none !important;
+  }
+}
+
 .f250-page .f250-encounters {
   background: var(--f250-cream);
   padding: 90px 24px;
