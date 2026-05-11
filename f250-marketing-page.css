@@ -105,6 +105,39 @@
   transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
+#nav-wrap,
+#site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999 !important;
+}
+
+.f250-page .f250-hero,
+.f250-page .f250-america-word,
+.f250-page .f250-journey-sequence,
+.f250-page section {
+  position: relative;
+  z-index: 1;
+}
+
+.f250-page .f250-hero-video,
+.f250-page .f250-hero-overlay,
+.f250-page .f250-hero::after,
+.f250-page .f250-america-word::before,
+.f250-page .f250-journey-sequence::before {
+  z-index: 0;
+}
+
+.f250-page .f250-hero-inner,
+.f250-page .f250-america-word-inner,
+.f250-page .f250-journey-sequence-inner {
+  position: relative;
+  z-index: 2;
+}
+
+
 /* Hide segmented sections by default */
 .f250-members-only,
 .f250-seekers-only,
