@@ -368,7 +368,7 @@ html.f250-editor-mode .f250-groups-only {
 .f250-page .f250-journey-sequence-card {
   position: relative;
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 340px 1fr;
   overflow: hidden;
   background: rgba(255,255,255,.96);
   color: #143563;
@@ -424,7 +424,7 @@ html.f250-editor-mode .f250-groups-only {
 }
 
 .f250-page .f250-journey-sequence-card .f250-card-content {
-  padding: 52px 46px;
+  padding: 42px 46px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -731,6 +731,40 @@ html.f250-editor-mode .f250-groups-only {
 
   .f250-page .f250-pricing-header {
     text-align: center;
+  }
+}
+
+/* Language note */
+.f250-page .f250-language-note {
+  max-width: var(--f250-max);
+  margin: 34px auto 0;
+  padding: 18px 22px;
+  border: 1px solid rgba(30, 42, 68, 0.10);
+  border-radius: 18px;
+  background: rgba(248, 247, 243, 0.72);
+  color: var(--f250-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.f250-page .f250-language-note strong {
+  display: inline;
+  color: var(--f250-navy);
+  font-weight: 800;
+  margin-right: 6px;
+}
+
+@media (max-width: 767px) {
+  .f250-page .f250-language-note {
+    text-align: left;
+    margin-top: 24px;
+    padding: 16px 18px;
+  }
+
+  .f250-page .f250-language-note strong {
+    display: block;
+    margin: 0 0 4px;
   }
 }
 
