@@ -966,6 +966,7 @@ html.f250-editor-mode .f250-groups-only {
   margin: 0 0 24px;
   font-family: var(--font-heading);
   font-size: clamp(44px, 6vw, 78px);
+  font-weight: 500;
   line-height: 0.96;
   letter-spacing: -0.04em;
   color: #ffffff;
