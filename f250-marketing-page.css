@@ -405,14 +405,22 @@ html.f250-editor-mode .f250-groups-only {
 }
 
 .f250-page .f250-journey-sequence-card .f250-card-image {
-  min-height: 340px;
+  position: relative;
+  min-height: 100%;
+  height: 100%;
+  overflow: hidden;
   background: #0b1534;
 }
 
+.f250-page .f250-journey-sequence-card .f250-card-image .swoogo-image,
 .f250-page .f250-journey-sequence-card .f250-card-image img {
   width: 100%;
   height: 100%;
+}
+
+.f250-page .f250-journey-sequence-card .f250-card-image img {
   object-fit: cover;
+  display: block;
 }
 
 .f250-page .f250-journey-sequence-card .f250-card-content {
