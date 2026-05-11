@@ -636,21 +636,22 @@ html.f250-editor-mode .f250-groups-only {
 .f250-page .f250-highlight-icon {
   width: 46px;
   height: 46px;
-  display: grid;
-  place-items: center;
-  border-radius: 16px;
-  background: rgba(192, 138, 58, 0.12);
-  color: var(--f250-gold);
-  font-size: 22px;
-  margin-bottom: 18px;
+  flex: 0 0 46px;
+  overflow: hidden;
 }
+
+.f250-page .f250-highlight-icon svg {
+  width: 24px !important;
+  height: 24px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+  display: block;
+}
+
 .f250-page .f250-highlight-icon svg,
 .f250-page .f250-highlight-icon svg path,
 .f250-page .f250-highlight-icon svg g {
   fill: var(--f250-gold) !important;
-  color: var(--f250-gold) !important;
-  width: 24px;
-  height: 24px;
 }
 
 .f250-page .f250-highlight-card h3 {
