@@ -649,6 +649,8 @@ html.f250-editor-mode .f250-groups-only {
 .f250-page .f250-highlight-icon svg g {
   fill: var(--f250-gold) !important;
   color: var(--f250-gold) !important;
+  width: 24px;
+  height: 24px;
 }
 
 .f250-page .f250-highlight-card h3 {
