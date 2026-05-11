@@ -644,10 +644,11 @@ html.f250-editor-mode .f250-groups-only {
   font-size: 22px;
   margin-bottom: 18px;
 }
-.f250-page .f250-highlight-icon svg {
-  width: 24px;
-  height: 24px;
-  fill: var(--f250-gold);
+.f250-page .f250-highlight-icon svg,
+.f250-page .f250-highlight-icon svg path,
+.f250-page .f250-highlight-icon svg g {
+  fill: var(--f250-gold) !important;
+  color: var(--f250-gold) !important;
 }
 
 .f250-page .f250-highlight-card h3 {
