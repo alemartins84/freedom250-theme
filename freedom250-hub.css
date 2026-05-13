@@ -1,0 +1,173 @@
+/* Freedom250 Home Timeline */
+
+.f250-home-timeline {
+  background: #f8f5ef;
+  padding: 76px 20px 86px;
+  color: #082b57;
+}
+
+.f250-container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.f250-eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #c79538;
+}
+
+.f250-home-timeline h2 {
+  margin: 0 0 16px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.05;
+  color: #082b57;
+}
+
+.f250-home-timeline-intro {
+  max-width: 680px;
+  margin: 0 auto 46px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #214061;
+}
+
+.f250-home-timeline .f250-section-header {
+  text-align: center;
+}
+
+.f250-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 0.72fr 1fr;
+  gap: 22px;
+  align-items: stretch;
+}
+
+.f250-timeline::before {
+  content: "";
+  position: absolute;
+  top: 34px;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(199, 149, 56, 0),
+    rgba(199, 149, 56, 0.75),
+    rgba(199, 149, 56, 0)
+  );
+}
+
+.f250-timeline-card {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  border: 1px solid rgba(8, 43, 87, 0.1);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 18px 45px rgba(8, 43, 87, 0.09);
+}
+
+.f250-timeline-card::before {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: -38px auto 22px;
+  border-radius: 50%;
+  background: #c79538;
+  border: 5px solid #f8f5ef;
+  box-shadow: 0 0 0 1px rgba(199, 149, 56, 0.35);
+}
+
+.f250-gap-card {
+  background: #fffaf0;
+  border-color: rgba(199, 149, 56, 0.28);
+  box-shadow: 0 14px 35px rgba(199, 149, 56, 0.12);
+}
+
+.f250-phase-label {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c79538;
+}
+
+.f250-timeline-card h3 {
+  margin: 0 0 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  line-height: 1.12;
+  color: #082b57;
+}
+
+.f250-date {
+  margin: 0 0 16px;
+  font-weight: 800;
+  color: #0d3b73;
+}
+
+.f250-timeline-card p {
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: #294764;
+}
+
+.f250-timeline-card p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .f250-timeline {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .f250-timeline::before {
+    top: 0;
+    bottom: 0;
+    left: 28px;
+    right: auto;
+    width: 2px;
+    height: auto;
+    background: linear-gradient(
+      180deg,
+      rgba(199, 149, 56, 0),
+      rgba(199, 149, 56, 0.75),
+      rgba(199, 149, 56, 0)
+    );
+  }
+
+  .f250-timeline-card {
+    padding: 26px 24px 26px 58px;
+  }
+
+  .f250-timeline-card::before {
+    position: absolute;
+    left: 19px;
+    top: 34px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .f250-home-timeline {
+    padding: 58px 16px 66px;
+  }
+
+  .f250-home-timeline h2 {
+    font-size: 34px;
+  }
+
+  .f250-timeline-card h3 {
+    font-size: 25px;
+  }
+}
