@@ -77,6 +77,30 @@
     });
   }
 
+  function setupF250PackageButtons() {
+    document.querySelectorAll(".js-f250-member-package").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var packageName = btn.getAttribute("data-package");
+        var mode = btn.getAttribute("data-mode");
+        var url = btn.getAttribute("data-url") || btn.getAttribute("href");
+
+        localStorage.setItem("f250Audience", "members");
+
+        if (packageName) {
+          localStorage.setItem("f250Package", packageName);
+        }
+
+        if (mode) {
+          localStorage.setItem("f250Mode", mode);
+        }
+
+        if (url) {
+          window.location.href = url;
+        }
+      });
+    });
+  }
+
   function setupF250Links() {
     document.querySelectorAll(".js-f250-link").forEach(function (el) {
       el.addEventListener("click", function (e) {
@@ -125,6 +149,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     var audience = setAudienceState();
     preserveAudienceLinks(audience);
+    setupF250PackageButtons();
     setupF250Links();
     setupAudioCards();
   });
