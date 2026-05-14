@@ -1,7 +1,5 @@
 (function () {
 
-  console.log("F250 LOADED");
-  document.documentElement.classList.add("f250-editor-mode-test");
 
     function isSwoogoEditor() {
       var href = window.location.href;
@@ -149,22 +147,6 @@
     });
   }
 
-  function setupF250Links() {
-    document.querySelectorAll(".js-f250-link").forEach(function (el) {
-      el.addEventListener("click", function (e) {
-        var url = el.getAttribute("data-url");
-        if (!url) return;
-
-        e.preventDefault();
-
-        if (el.getAttribute("target") === "_blank") {
-          window.open(url, "_blank", "noopener");
-        } else {
-          window.location.href = url;
-        }
-      });
-    });
-  }
 
   function setupAudioCards() {
     document.querySelectorAll(".f250-audio-card").forEach(function (card) {
@@ -206,7 +188,6 @@
     var audience = setAudienceState();
     preserveAudienceLinks(audience);
 
-    setupF250Links();
     setupAudioCards();
     setupF250PackageButtons();
   });
