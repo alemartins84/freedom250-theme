@@ -1,5 +1,19 @@
 (function () {
+
+  function isSwoogoEditor() {
+    return (
+      window.location.href.indexOf("/loggedin/website/iframe") !== -1 ||
+      window.location.href.indexOf("pageId=") !== -1 ||
+      window.self !== window.top
+    );
+  }
   
+  function setEditorMode() {
+    if (isSwoogoEditor()) {
+      document.documentElement.classList.add("f250-editor-mode");
+    }
+  }
+
   function captureMemberPrefillParams() {
     var params = new URLSearchParams(window.location.search);
 
@@ -14,7 +28,7 @@
       localStorage.setItem("f250MemberId", memberId);
     }
   }
-  
+
   var storageKey = "f250Audience";
 
   var validAudiences = ["seekers", "members", "groups"];
@@ -178,11 +192,19 @@
   setEditorMode();
 
   document.addEventListener("DOMContentLoaded", function () {
+    setEditorMode();
+
+    if (isSwoogoEditor()) {
+      return;
+    }
+
     captureMemberPrefillParams();
-    var audience = setAudienceState();    
+
+    var audience = setAudienceState();
     preserveAudienceLinks(audience);
-    setupF250PackageButtons();
+
     setupF250Links();
     setupAudioCards();
+    setupF250PackageButtons();
   });
 })();
