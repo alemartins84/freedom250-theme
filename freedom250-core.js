@@ -1,18 +1,29 @@
 (function () {
 
-  function isSwoogoEditor() {
-    return (
-      window.location.href.indexOf("/loggedin/website/iframe") !== -1 ||
-      window.location.href.indexOf("pageId=") !== -1 ||
-      window.self !== window.top
-    );
-  }
-  
-  function setEditorMode() {
-    if (isSwoogoEditor()) {
-      document.documentElement.classList.add("f250-editor-mode");
+    function isSwoogoEditor() {
+      var href = window.location.href;
+      var referrer = document.referrer || "";
+
+      return (
+        href.indexOf("/loggedin/") !== -1 ||
+        href.indexOf("/website/iframe") !== -1 ||
+        href.indexOf("pageId=") !== -1 ||
+        href.indexOf("edit") !== -1 ||
+        referrer.indexOf("/loggedin/") !== -1 ||
+        referrer.indexOf("/website/") !== -1 ||
+        window.self !== window.top
+      );
     }
-  }
+
+    function setEditorMode() {
+      if (isSwoogoEditor()) {
+        document.documentElement.classList.add("f250-editor-mode");
+
+        if (document.body) {
+          document.body.classList.add("f250-editor-mode");
+        }
+      }
+    }
 
   function captureMemberPrefillParams() {
     var params = new URLSearchParams(window.location.search);
@@ -74,17 +85,6 @@
     }
 
     return audience;
-  }
-
-  function setEditorMode() {
-    var isEditor =
-      window.location.href.indexOf("/loggedin/website/iframe") !== -1 ||
-      window.location.href.indexOf("pageId=") !== -1 ||
-      window.self !== window.top;
-
-    if (isEditor) {
-      document.documentElement.classList.add("f250-editor-mode");
-    }
   }
 
   function preserveAudienceLinks(audience) {
