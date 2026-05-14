@@ -1,4 +1,20 @@
 (function () {
+  
+  function captureMemberPrefillParams() {
+    var params = new URLSearchParams(window.location.search);
+
+    var email = params.get("email");
+    var memberId = params.get("c_3975805");
+
+    if (email) {
+      localStorage.setItem("f250Email", email);
+    }
+
+    if (memberId) {
+      localStorage.setItem("f250MemberId", memberId);
+    }
+  }
+  
   var storageKey = "f250Audience";
 
   var validAudiences = ["seekers", "members", "groups"];
@@ -79,10 +95,12 @@
 
   function setupF250PackageButtons() {
     document.querySelectorAll(".js-f250-member-package").forEach(function (btn) {
-      btn.addEventListener("click", function () {
+      btn.addEventListener("click", function (e) {
         var packageName = btn.getAttribute("data-package");
         var mode = btn.getAttribute("data-mode");
         var url = btn.getAttribute("data-url") || btn.getAttribute("href");
+
+        e.preventDefault();
 
         localStorage.setItem("f250Audience", "members");
 
@@ -94,8 +112,21 @@
           localStorage.setItem("f250Mode", mode);
         }
 
+        var email = localStorage.getItem("f250Email");
+        var memberId = localStorage.getItem("f250MemberId");
+
         if (url) {
-          window.location.href = url;
+          var finalUrl = new URL(url, window.location.origin);
+
+          if (email) {
+            finalUrl.searchParams.set("email", email);
+          }
+
+          if (memberId) {
+            finalUrl.searchParams.set("c_3975805", memberId);
+          }
+
+          window.location.href = finalUrl.toString();
         }
       });
     });
@@ -147,7 +178,8 @@
   setEditorMode();
 
   document.addEventListener("DOMContentLoaded", function () {
-    var audience = setAudienceState();
+    captureMemberPrefillParams();
+    var audience = setAudienceState();    
     preserveAudienceLinks(audience);
     setupF250PackageButtons();
     setupF250Links();
