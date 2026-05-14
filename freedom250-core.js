@@ -1,5 +1,8 @@
 (function () {
 
+  console.log("F250 LOADED");
+  document.documentElement.classList.add("f250-editor-mode-test");
+
     function isSwoogoEditor() {
       var href = window.location.href;
       var referrer = document.referrer || "";
