@@ -24,8 +24,8 @@
       return audience;
     }
 
-    localStorage.setItem(storageKey, "members");
-    return "members";
+    localStorage.setItem(storageKey, "seekers");
+    return "seekers";
   }
 
   function setAudienceState() {
@@ -34,6 +34,12 @@
     document.documentElement.setAttribute("data-f250-audience", audience);
 
     if (document.body) {
+      document.body.classList.remove(
+        "f250-audience-seekers",
+        "f250-audience-members",
+        "f250-audience-groups"
+      );
+
       document.body.classList.add("f250-audience-" + audience);
     }
 
@@ -52,7 +58,7 @@
   }
 
   function preserveAudienceLinks(audience) {
-    var anchor = audienceAnchors[audience] || "member-registration-options";
+    var anchor = audienceAnchors[audience] || "seeker-registration-options";
     var returnLinks = document.querySelectorAll('[data-f250-preserve-audience="true"]');
 
     returnLinks.forEach(function (link) {
@@ -114,8 +120,9 @@
     });
   }
 
+  setEditorMode();
+
   document.addEventListener("DOMContentLoaded", function () {
-    setEditorMode();
     var audience = setAudienceState();
     preserveAudienceLinks(audience);
     setupF250Links();
