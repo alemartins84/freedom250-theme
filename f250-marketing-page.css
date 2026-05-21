@@ -151,23 +151,23 @@ body.f250-audience-groups .f250-groups-only {
   display: block;
 }
 
-/* Default general page: show seeker path unless another audience is selected */
+/* Default general page */
 body.f250-audience-general .f250-seekers-only {
   display: block;
 }
 
-/* Seeker language variants */
+/* Language reset inside seeker audience */
 body.f250-audience-seekers .f250-seeker-en,
 body.f250-audience-seekers .f250-seeker-es {
   display: none !important;
 }
 
-/* English */
+/* Show English only */
 body.f250-audience-seekers.f250-lang-en .f250-seeker-en {
   display: block !important;
 }
 
-/* Spanish */
+/* Show Spanish only */
 body.f250-audience-seekers.f250-lang-es .f250-seeker-es {
   display: block !important;
 }
@@ -177,7 +177,7 @@ body.f250-audience-seekers.f250-lang-pt .f250-seeker-en {
   display: block !important;
 }
 
-/* Swoogo editor iframe: show all so you can edit/translate */
+/* Editor mode */
 html.f250-editor-mode .f250-members-only,
 html.f250-editor-mode .f250-seekers-only,
 html.f250-editor-mode .f250-groups-only,
