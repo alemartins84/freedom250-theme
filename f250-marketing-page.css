@@ -137,7 +137,6 @@
   z-index: 2;
 }
 
-
 /* Hide segmented sections by default */
 .f250-members-only,
 .f250-seekers-only,
@@ -152,15 +151,30 @@ body.f250-audience-groups .f250-groups-only {
   display: block;
 }
 
-/* Default general page: show members path unless another audience is selected */
+/* Default general page: show seeker path unless another audience is selected */
 body.f250-audience-general .f250-seekers-only {
+  display: block;
+}
+
+/* Seeker language variants */
+.f250-seeker-es {
+  display: none;
+}
+
+body.f250-lang-es .f250-seeker-en {
+  display: none;
+}
+
+body.f250-lang-es .f250-seeker-es {
   display: block;
 }
 
 /* Swoogo editor iframe: show all so you can edit/translate */
 html.f250-editor-mode .f250-members-only,
 html.f250-editor-mode .f250-seekers-only,
-html.f250-editor-mode .f250-groups-only {
+html.f250-editor-mode .f250-groups-only,
+html.f250-editor-mode .f250-seeker-en,
+html.f250-editor-mode .f250-seeker-es {
   display: block !important;
 }
 

@@ -43,6 +43,10 @@
 
   var storageKey = "f250Audience";
 
+  var languageStorageKey = "f250Language";
+
+  var validLanguages = ["en", "es", "pt"];
+
   var validAudiences = ["seekers", "members", "groups"];
 
   var audienceAnchors = {
@@ -70,22 +74,41 @@
     return "seekers";
   }
 
-  function setAudienceState() {
-    var audience = getAudience();
+  function getLanguage() {
+    var params = new URLSearchParams(window.location.search);
+    var lang = params.get("lang");
 
-    document.documentElement.setAttribute("data-f250-audience", audience);
+  if (validLanguages.indexOf(lang) !== -1) {
+    localStorage.setItem(languageStorageKey, lang);
+    return lang;
+  }
 
-    if (document.body) {
-      document.body.classList.remove(
-        "f250-audience-seekers",
-        "f250-audience-members",
-        "f250-audience-groups"
-      );
+  lang = localStorage.getItem(languageStorageKey);
 
-      document.body.classList.add("f250-audience-" + audience);
-    }
+  if (validLanguages.indexOf(lang) !== -1) {
+    return lang;
+  }
 
-    return audience;
+  localStorage.setItem(languageStorageKey, "en");
+    return "en";
+  }
+
+  function setLanguageState() {
+  var lang = getLanguage();
+
+  document.documentElement.setAttribute("data-f250-language", lang);
+
+  if (document.body) {
+    document.body.classList.remove(
+      "f250-lang-en",
+      "f250-lang-es",
+      "f250-lang-pt"
+    );
+
+    document.body.classList.add("f250-lang-" + lang);
+  }
+
+    return lang;
   }
 
   function preserveAudienceLinks(audience) {
@@ -183,9 +206,11 @@
       return;
     }
 
-    captureMemberPrefillParams();
+    captureMemberPrefillParams();    
 
     var audience = setAudienceState();
+    setLanguageState();
+    
     preserveAudienceLinks(audience);
 
     setupAudioCards();
