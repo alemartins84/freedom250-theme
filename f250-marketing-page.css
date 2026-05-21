@@ -157,17 +157,24 @@ body.f250-audience-general .f250-seekers-only {
 }
 
 /* Seeker language variants */
-body.f250-lang-es .f250-seeker-en {
+body.f250-audience-seekers .f250-seeker-en,
+body.f250-audience-seekers .f250-seeker-es {
   display: none !important;
 }
 
-body.f250-lang-es .f250-seeker-es {
+/* English */
+body.f250-audience-seekers.f250-lang-en .f250-seeker-en {
   display: block !important;
 }
 
-body.f250-lang-en .f250-seeker-es,
-body.f250-lang-pt .f250-seeker-es {
-  display: none !important;
+/* Spanish */
+body.f250-audience-seekers.f250-lang-es .f250-seeker-es {
+  display: block !important;
+}
+
+/* Portuguese fallback */
+body.f250-audience-seekers.f250-lang-pt .f250-seeker-en {
+  display: block !important;
 }
 
 /* Swoogo editor iframe: show all so you can edit/translate */
