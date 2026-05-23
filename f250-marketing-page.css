@@ -137,43 +137,36 @@
   z-index: 2;
 }
 
-/* Hide segmented sections by default */
+/* Hide all segmented sections by default */
 .f250-members-only,
 .f250-seekers-only,
 .f250-groups-only {
-  display: none;
-}
-
-/* Show correct audience segment */
-body.f250-audience-members .f250-members-only,
-body.f250-audience-seekers .f250-seekers-only,
-body.f250-audience-groups .f250-groups-only {
-  display: block;
-}
-
-/* Default general page */
-body.f250-audience-general .f250-seekers-only {
-  display: block;
-}
-
-/* Language reset inside seeker audience */
-body.f250-audience-seekers .f250-seeker-en,
-body.f250-audience-seekers .f250-seeker-es {
   display: none !important;
 }
 
-/* Show English only */
-body.f250-audience-seekers.f250-lang-en .f250-seeker-en {
+/* Show non-language audience sections */
+body.f250-audience-members .f250-members-only,
+body.f250-audience-groups .f250-groups-only {
   display: block !important;
 }
 
-/* Show Spanish only */
-body.f250-audience-seekers.f250-lang-es .f250-seeker-es {
+/* Hide all seeker language variants by default */
+body.f250-audience-seekers .f250-seekers-only {
+  display: none !important;
+}
+
+/* Show English seeker path */
+body.f250-audience-seekers.f250-lang-en .f250-seekers-only.f250-seeker-en {
   display: block !important;
 }
 
-/* Portuguese fallback */
-body.f250-audience-seekers.f250-lang-pt .f250-seeker-en {
+/* Show Spanish seeker path */
+body.f250-audience-seekers.f250-lang-es .f250-seekers-only.f250-seeker-es {
+  display: block !important;
+}
+
+/* Portuguese fallback to English seeker path */
+body.f250-audience-seekers.f250-lang-pt .f250-seekers-only.f250-seeker-en {
   display: block !important;
 }
 
