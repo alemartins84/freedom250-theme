@@ -1848,6 +1848,18 @@ html.f250-editor-mode .f250-essentials-path-only {
   padding-left: 20px;
 }
 
+.f250-page .f250-pathway-guidance {
+  max-width: 860px;
+  margin: 42px auto 0;
+  text-align: center;
+}
+
+.f250-page .f250-pathway-guidance p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--f250-muted);
+}
+
 
 @media (max-width: 767px) {
   .f250-page .f250-hero {
