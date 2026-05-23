@@ -172,7 +172,7 @@
     return lang;
   }
 
-  function preserveAudienceLinks(audience) {
+  function preserveAudienceLinks(audience, lang) {
     var anchor = audienceAnchors[audience] || "seeker-registration-options";
 
     var returnLinks = document.querySelectorAll(
@@ -189,6 +189,11 @@
 
         if (url.href.indexOf("/freedom250/freedom250-invitation") !== -1) {
           url.searchParams.set("audience", audience);
+
+          if (lang) {
+            url.searchParams.set("lang", lang);
+          }
+
           url.hash = anchor;
 
           link.setAttribute("href", url.toString());
@@ -294,9 +299,9 @@
     getMemberPrefill();
 
     var audience = setAudienceState();
-    setLanguageState();    
+    var lang = setLanguageState();   
 
-    preserveAudienceLinks(audience);
+    preserveAudienceLinks(audience, lang);
 
     setupAudioCards();
 
