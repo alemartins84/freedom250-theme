@@ -610,6 +610,19 @@ html.f250-editor-mode .f250-seeker-es {
   max-width: none !important;
 }
 
+/* 2-column pricing grid for Spanish seeker path */
+.f250-page .f250-pricing-grid.f250-pricing-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  max-width: 920px;
+}
+
+@media (max-width: 900px) {
+  .f250-page .f250-pricing-grid.f250-pricing-grid-2 {
+    grid-template-columns: 1fr !important;
+    max-width: 100%;
+  }
+}
+
 /* CARD */
 .f250-page .f250-pricing-card {
   background: #ffffff;
