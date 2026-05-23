@@ -51,6 +51,20 @@
   letter-spacing: -0.04em;
 }
 
+.f250-page.f250-conference-page .f250-section-title,
+.f250-page.f250-su-page .f250-section-title {
+  font-size: 42px;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+@media (max-width: 767px) {
+  .f250-page.f250-conference-page .f250-section-title,
+  .f250-page.f250-su-page .f250-section-title {
+    font-size: 34px;
+  }
+}
+
 .f250-page .f250-section-text {
   color: var(--f250-muted);
   font-size: 19px;
@@ -1825,6 +1839,49 @@ html.f250-editor-mode .f250-essentials-path-only {
 }
 
 /* Marketing Pages 2 - Conference + SU */
+/* =========================================
+   WEEK THEMES
+========================================= */
+
+.f250-page .f250-week-themes {
+  background: #ffffff;
+}
+
+.f250-page .f250-theme-card {
+  padding: 30px 28px;
+  background: #fbf8f1;
+  border: 1px solid rgba(30, 42, 68, 0.10);
+  border-radius: 22px;
+  box-shadow: 0 16px 42px rgba(13, 27, 53, 0.05);
+}
+
+.f250-page .f250-theme-card span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--f250-gold);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.f250-page .f250-theme-card h3 {
+  margin: 0 0 12px;
+  font-family: var(--font-heading);
+  font-size: 25px;
+  line-height: 1.12;
+  font-weight: 500;
+  color: var(--f250-navy);
+}
+
+.f250-page .f250-theme-card p {
+  margin: 0;
+  color: var(--f250-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+
 .f250-page .f250-pathway-card {
   padding: 36px;
 }
