@@ -1840,6 +1840,43 @@ html.f250-editor-mode .f250-essentials-path-only {
 
 /* Marketing Pages 2 - Conference + SU */
 /* =========================================
+   CARD SPACING IMPROVEMENTS
+========================================= */
+
+.f250-page .f250-card {
+  padding: 34px 32px;
+  border-radius: 22px;
+}
+
+/* Theme + experience cards */
+.f250-page .f250-theme-card,
+.f250-page .f250-experience-card {
+  padding: 34px 32px;
+}
+
+/* Headings */
+.f250-page .f250-theme-card h3,
+.f250-page .f250-experience-card h3 {
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+
+/* Paragraphs */
+.f250-page .f250-theme-card p,
+.f250-page .f250-experience-card p {
+  line-height: 1.75;
+}
+
+/* Dictation cards */
+.f250-page .f250-dictation-card {
+  padding: 26px 20px;
+}
+
+/* Pathway cards */
+.f250-page .f250-pathway-card {
+  padding: 40px 38px;
+}
+/* =========================================
    WEEK THEMES
 ========================================= */
 
@@ -1850,7 +1887,7 @@ html.f250-editor-mode .f250-essentials-path-only {
 .f250-page .f250-theme-card {
   padding: 30px 28px;
   background: #fbf8f1;
-  border: 1px solid rgba(30, 42, 68, 0.10);
+  border: 1px solid rgba(20,30,50,0.06);
   border-radius: 22px;
   box-shadow: 0 16px 42px rgba(13, 27, 53, 0.05);
 }
@@ -1881,9 +1918,338 @@ html.f250-editor-mode .f250-essentials-path-only {
   line-height: 1.6;
 }
 
+/* =========================================
+   EXPERIENCE SECTION
+========================================= */
+
+.f250-page .f250-experience-card {
+  padding: 30px 28px;
+  border: 1px solid rgba(20,30,50,0.06);
+}
+
+.f250-page .f250-experience-card h3 {
+  margin: 0 0 14px;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  line-height: 1.15;
+  font-weight: 500;
+  color: var(--f250-navy);
+}
+
+.f250-page .f250-experience-card p {
+  margin: 0;
+  color: var(--f250-muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.f250-page .f250-dictations {
+  background: var(--f250-cream);
+}
+
+.f250-page .f250-dictations .f250-grid-2 {
+  align-items: start;
+  gap: 64px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+}
+
+.f250-page .f250-dictation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+@media (max-width: 1000px) {
+  .f250-page .f250-dictation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .f250-page .f250-dictation-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.f250-page .f250-dictation-card {
+  padding: 22px 18px;
+  text-align: center;
+  min-height: 0;
+}
+
+.f250-page .f250-dictation-card img {
+  width: 78px;
+  height: 78px;
+  border-radius: 999px;
+  object-fit: cover;
+  margin: 0 auto 14px;
+}
+
+.f250-page .f250-dictation-card h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  line-height: 1.12;
+}
+.f250-page .f250-dictation-content {
+  max-width: 680px;
+}
+.f250-page .f250-dictation-card p {
+  font-size: 13px;
+  line-height: 1.45;
+}
+.f250-page .f250-dictation-quote {
+  margin: 32px 0;
+  padding: 28px 32px;
+  border-left: 4px solid var(--f250-gold);
+  background: rgba(255,255,255,0.65);
+  border-radius: 16px;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  line-height: 1.45;
+  color: var(--f250-navy);
+}
+
+.f250-page .f250-dictation-quote span {
+  display: block;
+  margin-top: 18px;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--f250-muted);
+  font-family: var(--font-body);
+}
+
+/* =========================================
+   DICTATION FLIP CARDS
+========================================= */
+
+.f250-page .f250-dictation-flip-card {
+  perspective: 1000px;
+  min-height: 210px;
+}
+
+.f250-page .f250-dictation-flip-inner {
+  position: relative;
+  width: 100%;
+  min-height: 210px;
+  transform-style: preserve-3d;
+  transition: transform 700ms ease;
+}
+
+.f250-page .f250-dictation-flip-card:hover .f250-dictation-flip-inner,
+.f250-page .f250-dictation-flip-card:focus-within .f250-dictation-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.f250-page .f250-dictation-flip-face {
+  position: absolute;
+  inset: 0;
+  padding: 24px 18px;
+  text-align: center;
+  border-radius: 22px;
+  backface-visibility: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(20,30,50,0.08);
+  box-shadow: 0 18px 45px rgba(13,27,53,0.08);
+}
+
+.f250-page .f250-dictation-front img {
+  width: 78px;
+  height: 78px;
+  border-radius: 999px;
+  object-fit: cover;
+  margin: 0 auto 14px;
+  display: block;
+}
+
+.f250-page .f250-dictation-front h3,
+.f250-page .f250-dictation-back h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  line-height: 1.12;
+  color: var(--f250-navy);
+}
+
+.f250-page .f250-dictation-front p,
+.f250-page .f250-dictation-back p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--f250-muted);
+}
+
+.f250-page .f250-dictation-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.f250-page .f250-dictation-back span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Ray backgrounds */
+.f250-page .ray-violet .f250-dictation-back {
+  background:
+    radial-gradient(circle at top, rgba(198, 139, 255, 0.36), transparent 42%),
+    linear-gradient(145deg, #221047, #4b1d73);
+  color: #ffffff;
+}
+
+.f250-page .ray-blue .f250-dictation-back {
+  background:
+    radial-gradient(circle at top, rgba(120, 170, 255, 0.36), transparent 42%),
+    linear-gradient(145deg, #071b44, #123d73);
+  color: #ffffff;
+}
+
+.f250-page .ray-gold .f250-dictation-back {
+  background:
+    radial-gradient(circle at top, rgba(255, 226, 142, 0.5), transparent 42%),
+    linear-gradient(145deg, #5b3510, #c08a3a);
+  color: #ffffff;
+}
+
+.f250-page .ray-green .f250-dictation-back {
+  background:
+    radial-gradient(circle at top, rgba(112, 225, 176, 0.34), transparent 42%),
+    linear-gradient(145deg, #053b33, #0d6f5f);
+  color: #ffffff;
+}
+
+.f250-page .ray-rose .f250-dictation-back {
+  background:
+    radial-gradient(circle at top, rgba(255, 180, 210, 0.4), transparent 42%),
+    linear-gradient(145deg, #4b1234, #a63f72);
+  color: #ffffff;
+}
+
+.f250-page .ray-white .f250-dictation-back {
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,0.95), transparent 42%),
+    linear-gradient(145deg, #e8edf7, #ffffff);
+  color: var(--f250-navy);
+}
+
+.f250-page .f250-dictation-back h3,
+.f250-page .f250-dictation-back p,
+.f250-page .f250-dictation-back span {
+  color: inherit;
+}
+
+/* =========================================
+   GOLDEN AGE CINEMATIC BREAK
+========================================= */
+
+.f250-page .f250-golden-age-break {
+  position: relative;
+  overflow: hidden;
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(201, 138, 255, 0.34), transparent 28%),
+    radial-gradient(circle at 72% 42%, rgba(231, 201, 129, 0.26), transparent 26%),
+    radial-gradient(circle at 30% 70%, rgba(88, 76, 255, 0.28), transparent 32%),
+    linear-gradient(145deg, #070b24 0%, #111653 42%, #2a124c 72%, #080a1f 100%);
+}
+
+.f250-page .f250-golden-age-break::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.06), transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(255,255,255,0.16), transparent 36%);
+  pointer-events: none;
+}
+
+.f250-page .f250-golden-age-break::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: min(620px, 80vw);
+  height: min(620px, 80vw);
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(231,201,129,0.12) 24%, rgba(159,93,255,0.08) 44%, transparent 70%);
+  filter: blur(2px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.f250-page .f250-golden-age-glow {
+  position: absolute;
+  inset: auto 0 -120px 0;
+  height: 260px;
+  background: radial-gradient(ellipse at center, rgba(231, 201, 129, 0.32), transparent 62%);
+  pointer-events: none;
+}
+
+.f250-page .f250-golden-age-content {
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.f250-page .f250-golden-age-content .f250-kicker {
+  color: var(--f250-gold-soft);
+  margin-bottom: 18px;
+}
+
+.f250-page .f250-golden-age-content h2 {
+  margin: 0 auto 28px;
+  font-family: var(--font-heading);
+  font-size: clamp(44px, 7vw, 86px);
+  line-height: 0.95;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  color: #ffffff;
+}
+
+.f250-page .f250-golden-age-content p {
+  max-width: 700px;
+  margin: 0 auto 18px;
+  font-size: 19px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.84);
+}
+
+.f250-page .f250-golden-age-content blockquote {
+  margin: 38px auto 0;
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.25;
+  color: #f5df9a;
+}
+
+@media (max-width: 767px) {
+  .f250-page .f250-golden-age-break {
+    min-height: 560px;
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  .f250-page .f250-golden-age-content p {
+    font-size: 16px;
+  }
+}
 
 .f250-page .f250-pathway-card {
   padding: 36px;
+  border: 1px solid rgba(20,30,50,0.06);
 }
 
 .f250-page .f250-pathway-card h3 {
@@ -1916,7 +2282,87 @@ html.f250-editor-mode .f250-essentials-path-only {
   line-height: 1.7;
   color: var(--f250-muted);
 }
+/* =========================================
+   FINAL CTA
+========================================= */
 
+.f250-page .f250-final-cta {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.f250-page .f250-final-cta-card {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 72px 64px;
+  text-align: center;
+  border-radius: 36px;
+
+  background:
+    radial-gradient(circle at top center,
+      rgba(231,201,129,0.14),
+      transparent 38%),
+    linear-gradient(
+      145deg,
+      #0b1440 0%,
+      #131b59 46%,
+      #25124c 100%
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 40px 90px rgba(10,18,45,0.18);
+}
+
+.f250-page .f250-final-cta-card .f250-kicker {
+  color: var(--f250-gold-soft);
+  margin-bottom: 18px;
+}
+
+.f250-page .f250-final-cta-card .f250-section-title {
+  margin-bottom: 24px;
+  color: #ffffff;
+}
+
+.f250-page .f250-final-cta-card .f250-section-text {
+  max-width: 680px;
+  margin: 0 auto 38px;
+  color: rgba(255,255,255,0.82);
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+.f250-page .f250-final-cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.f250-page .f250-final-cta .btn-outline {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #ffffff;
+}
+
+.f250-page .f250-final-cta .btn-outline:hover {
+  background: rgba(255,255,255,0.14);
+}
+
+@media (max-width: 767px) {
+
+  .f250-page .f250-final-cta-card {
+    padding: 52px 28px;
+    border-radius: 28px;
+  }
+
+  .f250-page .f250-final-cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+}
 
 @media (max-width: 767px) {
   .f250-page .f250-hero {
@@ -1983,4 +2429,19 @@ html.f250-editor-mode .f250-essentials-path-only {
     gap: 2px;
     border-radius: 18px;
   }
+}
+
+@media (max-width: 767px) {
+
+  .f250-page .f250-section {
+    padding: 84px 0;
+  }
+
+  .f250-page .f250-card,
+  .f250-page .f250-theme-card,
+  .f250-page .f250-experience-card,
+  .f250-page .f250-pathway-card {
+    padding: 28px 24px;
+  }
+
 }
