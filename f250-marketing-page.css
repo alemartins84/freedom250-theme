@@ -1838,58 +1838,24 @@ html.f250-editor-mode .f250-essentials-path-only {
   pointer-events: none;
 }
 
-/* Marketing Pages 2 - Conference + SU */
-/* =========================================
-   CARD SPACING IMPROVEMENTS
-========================================= */
+/* ==========================================================================
+   Marketing Pages 2 — Conference + SU
+   ========================================================================== */
 
-.f250-page .f250-card {
+/* Shared cards */
+.f250-page .f250-card,
+.f250-page .f250-theme-card,
+.f250-page .f250-experience-card,
+.f250-page .f250-pathway-card {
   padding: 34px 32px;
   border-radius: 22px;
+  border: 1px solid rgba(20,30,50,0.06);
 }
 
-/* Theme + experience cards */
 .f250-page .f250-theme-card,
 .f250-page .f250-experience-card {
-  padding: 34px 32px;
-}
-
-/* Headings */
-.f250-page .f250-theme-card h3,
-.f250-page .f250-experience-card h3 {
-  margin: 0 0 16px;
-  line-height: 1.2;
-}
-
-/* Paragraphs */
-.f250-page .f250-theme-card p,
-.f250-page .f250-experience-card p {
-  line-height: 1.75;
-}
-
-/* Dictation cards */
-.f250-page .f250-dictation-card {
-  padding: 26px 20px;
-}
-
-/* Pathway cards */
-.f250-page .f250-pathway-card {
-  padding: 40px 38px;
-}
-/* =========================================
-   WEEK THEMES
-========================================= */
-
-.f250-page .f250-week-themes {
-  background: #ffffff;
-}
-
-.f250-page .f250-theme-card {
-  padding: 30px 28px;
   background: #fbf8f1;
-  border: 1px solid rgba(20,30,50,0.06);
-  border-radius: 22px;
-  box-shadow: 0 16px 42px rgba(13, 27, 53, 0.05);
+  box-shadow: 0 16px 42px rgba(13,27,53,0.05);
 }
 
 .f250-page .f250-theme-card span {
@@ -1902,47 +1868,25 @@ html.f250-editor-mode .f250-essentials-path-only {
   text-transform: uppercase;
 }
 
-.f250-page .f250-theme-card h3 {
-  margin: 0 0 12px;
-  font-family: var(--font-heading);
-  font-size: 25px;
-  line-height: 1.12;
-  font-weight: 500;
-  color: var(--f250-navy);
-}
-
-.f250-page .f250-theme-card p {
-  margin: 0;
-  color: var(--f250-muted);
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-/* =========================================
-   EXPERIENCE SECTION
-========================================= */
-
-.f250-page .f250-experience-card {
-  padding: 30px 28px;
-  border: 1px solid rgba(20,30,50,0.06);
-}
-
+.f250-page .f250-theme-card h3,
 .f250-page .f250-experience-card h3 {
   margin: 0 0 14px;
   font-family: var(--font-heading);
   font-size: 24px;
-  line-height: 1.15;
+  line-height: 1.18;
   font-weight: 500;
   color: var(--f250-navy);
 }
 
+.f250-page .f250-theme-card p,
 .f250-page .f250-experience-card p {
   margin: 0;
   color: var(--f250-muted);
   font-size: 15px;
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
+/* Dictations */
 .f250-page .f250-dictations {
   background: var(--f250-cream);
 }
@@ -1953,50 +1897,10 @@ html.f250-editor-mode .f250-essentials-path-only {
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
 }
 
-.f250-page .f250-dictation-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-
-@media (max-width: 1000px) {
-  .f250-page .f250-dictation-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 560px) {
-  .f250-page .f250-dictation-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.f250-page .f250-dictation-card {
-  padding: 22px 18px;
-  text-align: center;
-  min-height: 0;
-}
-
-.f250-page .f250-dictation-card img {
-  width: 78px;
-  height: 78px;
-  border-radius: 999px;
-  object-fit: cover;
-  margin: 0 auto 14px;
-}
-
-.f250-page .f250-dictation-card h3 {
-  margin: 0 0 8px;
-  font-size: 20px;
-  line-height: 1.12;
-}
 .f250-page .f250-dictation-content {
   max-width: 680px;
 }
-.f250-page .f250-dictation-card p {
-  font-size: 13px;
-  line-height: 1.45;
-}
+
 .f250-page .f250-dictation-quote {
   margin: 32px 0;
   padding: 28px 32px;
@@ -2012,26 +1916,29 @@ html.f250-editor-mode .f250-essentials-path-only {
 .f250-page .f250-dictation-quote span {
   display: block;
   margin-top: 18px;
+  font-family: var(--font-body);
   font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--f250-muted);
-  font-family: var(--font-body);
 }
 
-/* =========================================
-   DICTATION FLIP CARDS
-========================================= */
+.f250-page .f250-dictation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
 
+/* Dictation flip cards */
 .f250-page .f250-dictation-flip-card {
   perspective: 1000px;
-  min-height: 210px;
+  min-height: 220px;
 }
 
 .f250-page .f250-dictation-flip-inner {
   position: relative;
   width: 100%;
-  min-height: 210px;
+  min-height: 220px;
   transform-style: preserve-3d;
   transition: transform 700ms ease;
 }
@@ -2095,46 +2002,39 @@ html.f250-editor-mode .f250-essentials-path-only {
   text-transform: uppercase;
 }
 
-/* Ray backgrounds */
 .f250-page .ray-violet .f250-dictation-back {
-  background:
-    radial-gradient(circle at top, rgba(198, 139, 255, 0.36), transparent 42%),
-    linear-gradient(145deg, #221047, #4b1d73);
+  background: radial-gradient(circle at top, rgba(198,139,255,0.36), transparent 42%),
+              linear-gradient(145deg, #221047, #4b1d73);
   color: #ffffff;
 }
 
 .f250-page .ray-blue .f250-dictation-back {
-  background:
-    radial-gradient(circle at top, rgba(120, 170, 255, 0.36), transparent 42%),
-    linear-gradient(145deg, #071b44, #123d73);
+  background: radial-gradient(circle at top, rgba(120,170,255,0.36), transparent 42%),
+              linear-gradient(145deg, #071b44, #123d73);
   color: #ffffff;
 }
 
 .f250-page .ray-gold .f250-dictation-back {
-  background:
-    radial-gradient(circle at top, rgba(255, 226, 142, 0.5), transparent 42%),
-    linear-gradient(145deg, #5b3510, #c08a3a);
+  background: radial-gradient(circle at top, rgba(255,226,142,0.5), transparent 42%),
+              linear-gradient(145deg, #5b3510, #c08a3a);
   color: #ffffff;
 }
 
 .f250-page .ray-green .f250-dictation-back {
-  background:
-    radial-gradient(circle at top, rgba(112, 225, 176, 0.34), transparent 42%),
-    linear-gradient(145deg, #053b33, #0d6f5f);
+  background: radial-gradient(circle at top, rgba(112,225,176,0.34), transparent 42%),
+              linear-gradient(145deg, #053b33, #0d6f5f);
   color: #ffffff;
 }
 
 .f250-page .ray-rose .f250-dictation-back {
-  background:
-    radial-gradient(circle at top, rgba(255, 180, 210, 0.4), transparent 42%),
-    linear-gradient(145deg, #4b1234, #a63f72);
+  background: radial-gradient(circle at top, rgba(255,180,210,0.4), transparent 42%),
+              linear-gradient(145deg, #4b1234, #a63f72);
   color: #ffffff;
 }
 
 .f250-page .ray-white .f250-dictation-back {
-  background:
-    radial-gradient(circle at top, rgba(255,255,255,0.95), transparent 42%),
-    linear-gradient(145deg, #e8edf7, #ffffff);
+  background: radial-gradient(circle at top, rgba(255,255,255,0.95), transparent 42%),
+              linear-gradient(145deg, #e8edf7, #ffffff);
   color: var(--f250-navy);
 }
 
@@ -2144,10 +2044,7 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: inherit;
 }
 
-/* =========================================
-   GOLDEN AGE CINEMATIC BREAK
-========================================= */
-
+/* Golden Age break */
 .f250-page .f250-golden-age-break {
   position: relative;
   overflow: hidden;
@@ -2156,9 +2053,9 @@ html.f250-editor-mode .f250-essentials-path-only {
   align-items: center;
   color: #ffffff;
   background:
-    radial-gradient(circle at 50% 35%, rgba(201, 138, 255, 0.34), transparent 28%),
-    radial-gradient(circle at 72% 42%, rgba(231, 201, 129, 0.26), transparent 26%),
-    radial-gradient(circle at 30% 70%, rgba(88, 76, 255, 0.28), transparent 32%),
+    radial-gradient(circle at 50% 35%, rgba(201,138,255,0.34), transparent 28%),
+    radial-gradient(circle at 72% 42%, rgba(231,201,129,0.26), transparent 26%),
+    radial-gradient(circle at 30% 70%, rgba(88,76,255,0.28), transparent 32%),
     linear-gradient(145deg, #070b24 0%, #111653 42%, #2a124c 72%, #080a1f 100%);
 }
 
@@ -2169,30 +2066,6 @@ html.f250-editor-mode .f250-essentials-path-only {
   background:
     linear-gradient(180deg, rgba(255,255,255,0.06), transparent 28%),
     radial-gradient(circle at 50% 100%, rgba(255,255,255,0.16), transparent 36%);
-  pointer-events: none;
-}
-
-.f250-page .f250-golden-age-break::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 52%;
-  width: min(620px, 80vw);
-  height: min(620px, 80vw);
-  transform: translate(-50%, -50%);
-  border-radius: 999px;
-  background:
-    radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(231,201,129,0.12) 24%, rgba(159,93,255,0.08) 44%, transparent 70%);
-  filter: blur(2px);
-  opacity: 0.9;
-  pointer-events: none;
-}
-
-.f250-page .f250-golden-age-glow {
-  position: absolute;
-  inset: auto 0 -120px 0;
-  height: 260px;
-  background: radial-gradient(ellipse at center, rgba(231, 201, 129, 0.32), transparent 62%);
   pointer-events: none;
 }
 
@@ -2235,23 +2108,7 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: #f5df9a;
 }
 
-@media (max-width: 767px) {
-  .f250-page .f250-golden-age-break {
-    min-height: 560px;
-    padding-left: 22px;
-    padding-right: 22px;
-  }
-
-  .f250-page .f250-golden-age-content p {
-    font-size: 16px;
-  }
-}
-
-.f250-page .f250-pathway-card {
-  padding: 36px;
-  border: 1px solid rgba(20,30,50,0.06);
-}
-
+/* Pathways */
 .f250-page .f250-pathway-card h3 {
   margin: 12px 0 16px;
   font-family: var(--font-heading);
@@ -2282,10 +2139,8 @@ html.f250-editor-mode .f250-essentials-path-only {
   line-height: 1.7;
   color: var(--f250-muted);
 }
-/* =========================================
-   FINAL CTA
-========================================= */
 
+/* Final CTA */
 .f250-page .f250-final-cta {
   padding-top: 120px;
   padding-bottom: 120px;
@@ -2297,22 +2152,11 @@ html.f250-editor-mode .f250-essentials-path-only {
   padding: 72px 64px;
   text-align: center;
   border-radius: 36px;
-
   background:
-    radial-gradient(circle at top center,
-      rgba(231,201,129,0.14),
-      transparent 38%),
-    linear-gradient(
-      145deg,
-      #0b1440 0%,
-      #131b59 46%,
-      #25124c 100%
-    );
-
+    radial-gradient(circle at top center, rgba(231,201,129,0.14), transparent 38%),
+    linear-gradient(145deg, #0b1440 0%, #131b59 46%, #25124c 100%);
   color: #ffffff;
-
-  box-shadow:
-    0 40px 90px rgba(10,18,45,0.18);
+  box-shadow: 0 40px 90px rgba(10,18,45,0.18);
 }
 
 .f250-page .f250-final-cta-card .f250-kicker {
@@ -2350,7 +2194,49 @@ html.f250-editor-mode .f250-essentials-path-only {
   background: rgba(255,255,255,0.14);
 }
 
-@media (max-width: 767px) {
+/* Mobile fixes */
+@media (max-width: 900px) {
+  .f250-page .f250-section {
+    padding: 84px 20px;
+  }
+
+  .f250-page .f250-dictations .f250-grid-2 {
+    grid-template-columns: 1fr !important;
+    gap: 42px;
+  }
+
+  .f250-page .f250-dictation-content {
+    max-width: 100%;
+  }
+
+  .f250-page .f250-dictation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .f250-page .f250-section {
+    padding: 76px 18px;
+  }
+
+  .f250-page .f250-dictation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .f250-page .f250-dictation-flip-card,
+  .f250-page .f250-dictation-flip-inner {
+    min-height: 220px;
+  }
+
+  .f250-page .f250-dictation-flip-face {
+    padding: 26px 22px;
+  }
+
+  .f250-page .f250-dictation-front img {
+    width: 84px;
+    height: 84px;
+  }
 
   .f250-page .f250-final-cta-card {
     padding: 52px 28px;
@@ -2362,86 +2248,11 @@ html.f250-editor-mode .f250-essentials-path-only {
     align-items: stretch;
   }
 
-}
-
-@media (max-width: 767px) {
-  .f250-page .f250-hero {
-    min-height: 720px;
-    padding: 96px 20px 80px;
+  .f250-page .f250-golden-age-break {
+    min-height: 560px;
   }
 
-  .f250-page .f250-eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    padding: 8px 12px;
+  .f250-page .f250-golden-age-content p {
+    font-size: 16px;
   }
-
-  .f250-page .f250-hero-actions {
-    flex-direction: column;
-  }
-
-  .f250-page .f250-hero-actions .btn,
-  .f250-page .f250-hero-actions a {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .f250-page .f250-intro-text {
-    font-size: 20px;
-    line-height: 1.65;
-  }
-
-  .f250-page .f250-destiny-inner,
-  .f250-page .f250-encounters-inner,
-  .f250-page .f250-audio-inner {
-    grid-template-columns: 1fr;
-    gap: 36px;
-    padding: 30px 22px;
-  }
-}
-
-@media (max-width: 800px) {
-  .f250-page .f250-encounters-inner {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-}
-
-/* MOBILE */
-@media (max-width: 800px) {
-  .f250-page .f250-audio-inner {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-
-  .f250-page .f250-audio-content {
-    text-align: center;
-  }
-
-  .f250-page .f250-audio-content p {
-    margin: 0 auto;
-  }
-}
-@media (max-width: 600px) {
-  .f250-page .f250-attend-btn {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-    border-radius: 18px;
-  }
-}
-
-@media (max-width: 767px) {
-
-  .f250-page .f250-section {
-    padding: 84px 0;
-  }
-
-  .f250-page .f250-card,
-  .f250-page .f250-theme-card,
-  .f250-page .f250-experience-card,
-  .f250-page .f250-pathway-card {
-    padding: 28px 24px;
-  }
-
 }
