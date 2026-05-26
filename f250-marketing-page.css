@@ -2312,7 +2312,7 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: var(--f250-navy);
 }
 
-.f250-page.f250-conference-page .f250-why-card p {
+.f250-page.f250-conference-page .f250-why-card .f250-section-text {
   margin: 0;
   color: #4d5b78;
   font-size: 15.5px;
