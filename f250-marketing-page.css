@@ -2594,8 +2594,8 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: var(--f250-navy);
 }
 
-.f250-page.f250-conference-page .f250-theme-card p,
-.f250-page.f250-conference-page .f250-experience-card p {
+.f250-page.f250-conference-page .f250-theme-card .f250-section-text,
+.f250-page.f250-conference-page .f250-experience-card .f250-section-text {
   margin: 0;
   color: var(--f250-muted);
   font-size: 15px;
