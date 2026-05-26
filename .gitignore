@@ -1,0 +1,25 @@
+# Ignore node and composer dependencies
+node_modules/
+
+# Ignore system/IDE files
+.DS_Store
+Thumbs.db
+*.log
+.env
+
+
+# Ignore build artifacts
+/dist/
+.build/
+
+# Ignore backup files
+*.bak
+*.swp
+*.swo
+*.tmp
+
+*.html
+
+# Ignore uploads or assets you generate in dev
+
+

@@ -284,6 +284,42 @@
 
   }
 
+  function setupVioletFlamePlayer() {
+
+    var btn = document.getElementById("violetFlamePlayBtn");
+    var audio = document.getElementById("violetFlameAudio");
+
+    if (!btn || !audio) return;
+
+    btn.addEventListener("click", function () {
+
+      if (audio.paused) {
+
+        audio.play();
+
+        btn.innerHTML =
+          '<span class="f250-audio-icon">❚❚</span> Pause mantra';
+
+      } else {
+
+        audio.pause();
+
+        btn.innerHTML =
+          '<span class="f250-audio-icon">▶</span> Listen to the mantra';
+
+      }
+
+    });
+
+    audio.addEventListener("ended", function () {
+
+      btn.innerHTML =
+        '<span class="f250-audio-icon">▶</span> Listen to the mantra';
+
+    });
+
+  }
+
   setEditorMode();
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -304,6 +340,7 @@
     preserveAudienceLinks(audience, lang);
 
     setupAudioCards();
+    setupVioletFlamePlayer();
 
     setupF250PackageButtons();
 
