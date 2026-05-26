@@ -2074,8 +2074,8 @@ html.f250-editor-mode .f250-essentials-path-only {
 }
 
 .f250-page.f250-conference-page .f250-conference-hero-actions .btn-alternate {
-  border-color: #ffffff;
-  color: #ffffff;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
 }
 
 .f250-page.f250-conference-page .f250-conference-hero-note {
@@ -3562,14 +3562,10 @@ html.f250-editor-mode .f250-essentials-path-only {
 .f250-page.f250-conference-page .f250-final-cta-card {
   position: relative;
   overflow: hidden;
-
   max-width: 980px;
   margin: 0 auto;
-
   padding: 82px 72px;
-
   border-radius: 36px;
-
   background:
     radial-gradient(circle at 50% 0%,
       rgba(255, 255, 255, 0.10),
@@ -3578,32 +3574,26 @@ html.f250-editor-mode .f250-essentials-path-only {
       #07175a 0%,
       #171b72 46%,
       #2b1262 100%);
-
   box-shadow:
     0 40px 120px rgba(17, 24, 59, 0.18),
     0 0 90px rgba(98, 60, 168, 0.14);
-
   text-align: center;
 }
 
 .f250-page.f250-conference-page .f250-final-cta-card::before {
   content: "";
-
   position: absolute;
   inset: 0;
-
   background:
     radial-gradient(circle at 50% 0%,
       rgba(255, 225, 145, 0.10),
       transparent 28%);
-
   pointer-events: none;
 }
 
 .f250-page.f250-conference-page .f250-final-cta-card .f250-section-title {
   max-width: 760px;
   margin: 0 auto 24px;
-
   font-size: clamp(46px, 5vw, 72px);
   line-height: .96;
 
@@ -3632,20 +3622,15 @@ html.f250-editor-mode .f250-essentials-path-only {
     linear-gradient(135deg,
       #d7b15c 0%,
       #f2d17a 100%) !important;
-
   color: #142451 !important;
-
   border: none !important;
-
   box-shadow:
     0 12px 28px rgba(242, 209, 122, 0.28);
 }
 
 .f250-page.f250-conference-page .f250-final-cta-buttons .btn-alternate {
   background: rgba(255, 255, 255, 0.06);
-
   border: 1px solid rgba(255, 255, 255, 0.18);
-
   color: rgba(255, 255, 255, 0.88);
 }
 
@@ -3694,7 +3679,6 @@ html.f250-editor-mode .f250-essentials-path-only {
   .f250-page.f250-conference-page .f250-final-cta-buttons a {
     width: 100%;
     justify-content: center;
-
     min-height: 56px;
   }
 
