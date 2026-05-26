@@ -2702,6 +2702,7 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: var(--f250-muted);
 }
 
+
 .f250-page.f250-conference-page .f250-dictation-back {
   transform: rotateY(180deg);
   display: flex;
@@ -2755,7 +2756,7 @@ html.f250-editor-mode .f250-essentials-path-only {
 }
 
 .f250-page.f250-conference-page .f250-dictation-back h3,
-.f250-page.f250-conference-page .f250-dictation-back p,
+.f250-page.f250-conference-page .f250-dictation-back .f250-section-text,
 .f250-page.f250-conference-page .f250-dictation-back span {
   color: inherit;
 }
