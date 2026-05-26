@@ -2951,7 +2951,7 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: #fff8e8;
 }
 
-.f250-page.f250-conference-page .f250-golden-age-card p {
+.f250-page.f250-conference-page .f250-golden-age-card .f250-section-text {
   max-width: 460px;
   margin: 0;
   font-size: 16px;
