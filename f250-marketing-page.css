@@ -2038,7 +2038,7 @@ html.f250-editor-mode .f250-essentials-path-only {
   opacity: 0.92;
 }
 
-.f250-page.f250-conference-page .f250-conference-hero .f250-section-text {
+.f250-page.f250-conference-page .f250-conference-hero .f250-hero-text {
   max-width: 38ch;
   font-size: clamp(18px, 1.4vw, 21px);
   line-height: 1.62;
