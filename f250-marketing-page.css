@@ -2523,7 +2523,7 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: var(--f250-navy);
 }
 
-.f250-page.f250-conference-page .f250-experience-item p {
+.f250-page.f250-conference-page .f250-experience-item .f250-section-text {
   margin: 0;
   color: #536078;
   font-size: 15.5px;
