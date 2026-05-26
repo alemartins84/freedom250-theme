@@ -2694,8 +2694,8 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: var(--f250-navy);
 }
 
-.f250-page.f250-conference-page .f250-dictation-front p,
-.f250-page.f250-conference-page .f250-dictation-back p {
+.f250-page.f250-conference-page .f250-dictation-front .f250-section-text,
+.f250-page.f250-conference-page .f250-dictation-back .f250-section-text {
   margin: 0;
   font-size: 13px;
   line-height: 1.45;
