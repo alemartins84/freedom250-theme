@@ -2889,7 +2889,7 @@ html.f250-editor-mode .f250-essentials-path-only {
   text-align: left;
 }
 
-.f250-page.f250-conference-page .f250-golden-age-quote p {
+.f250-page.f250-conference-page .f250-golden-age-quote .quote-text {
   margin: 0 0 10px;
   font-size: 26px;
   line-height: 1.36;
