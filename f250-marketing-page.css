@@ -1949,17 +1949,7 @@ html.f250-editor-mode .f250-essentials-path-only {
 }
 
 .f250-page.f250-conference-page .f250-conference-hero::after {
-  /*
-  content: "";
-  position: absolute;
-  left: -8%;
-  right: -8%;
-  bottom: -72px;
-  height: 150px;
-  background: var(--f250-cream);
-  transform: rotate(-1.6deg);
-  z-index: 1;
-  */
+
   content: "";
 
   position: absolute;
@@ -1977,11 +1967,8 @@ html.f250-editor-mode .f250-essentials-path-only {
       rgba(248, 247, 243, 1) 100%);
 
   transform: rotate(-1.5deg);
-
   z-index: 1;
-
-  pointer-events: none;
-}
+  pointer-events: none;}
 
 .f250-page.f250-conference-page .f250-conference-hero::before {
   content: "";
@@ -2076,6 +2063,7 @@ html.f250-editor-mode .f250-essentials-path-only {
 .f250-page.f250-conference-page .f250-conference-hero-actions .btn-alternate {
   border-color: #ffffff !important;
   color: #ffffff !important;
+  background: transparent !important;
 }
 
 .f250-page.f250-conference-page .f250-conference-hero-note {
