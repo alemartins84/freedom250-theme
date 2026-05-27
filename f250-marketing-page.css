@@ -4079,7 +4079,7 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: var(--f250-navy);
 }
 
-.f250-page.f250-su-jeremiah-page .f250-su-bridge-card p {
+.f250-page.f250-su-jeremiah-page .f250-su-bridge-card .f250-section-text {
   margin: 0;
   color: var(--f250-muted);
   font-size: 16px;
@@ -4148,7 +4148,7 @@ html.f250-editor-mode .f250-essentials-path-only {
       rgba(7, 27, 62, 0.82) 38%,
       rgba(7, 27, 62, 0.40) 72%,
       rgba(7, 27, 62, 0.22) 100%),
-    url("/landing/assets/f250-jeremiah2.png");
+    url("https://assets.swoogo.com/themes/69b9c948cdbf8/f250-jeremiah2.jpg");
   background-size: cover;
   background-position: center center;
   opacity: 1;
@@ -4218,7 +4218,7 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: var(--f250-navy);
 }
 
-.f250-page.f250-su-jeremiah-page .f250-su-point p {
+.f250-page.f250-su-jeremiah-page .f250-su-point .f250-section-text {
   margin: 0;
   color: var(--f250-muted);
   font-size: 15px;
