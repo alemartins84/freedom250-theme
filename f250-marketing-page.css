@@ -4870,19 +4870,13 @@ html.f250-editor-mode .f250-essentials-path-only {
 
 .f250-page.f250-su-jeremiah-page .f250-su-rhythm-card {
   position: relative;
-
   padding: 36px 30px;
-
   border-radius: 28px;
-
   background:
     linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
-
   border: 1px solid rgba(20, 34, 68, .08);
-
   box-shadow:
     0 18px 50px rgba(13, 27, 53, .05);
-
   transition:
     transform .3s ease,
     box-shadow .3s ease;
@@ -4920,11 +4914,9 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: var(--f250-navy);
 }
 
-.f250-page.f250-su-jeremiah-page .f250-su-rhythm-card p {
+.f250-page.f250-su-jeremiah-page .f250-su-rhythm-card .f250-section-text {
   margin: 0;
-
   color: var(--f250-muted);
-
   font-size: 15.5px;
   line-height: 1.72;
 }
