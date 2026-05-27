@@ -3072,7 +3072,7 @@ body.f250-editor-mode .f250-reveal {
   color: var(--f250-navy);
 }
 
-.f250-page.f250-conference-page .f250-pathway-card p {
+.f250-page.f250-conference-page .f250-pathway-card .f250-section-text {
   margin: 0 0 24px;
   color: #536078;
   font-size: 16px;
