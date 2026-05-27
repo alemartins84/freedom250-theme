@@ -4726,13 +4726,13 @@ body.f250-editor-mode .f250-reveal {
   justify-content: center;
   flex-wrap: wrap;
   gap: 16px;
-
   margin-top: 38px;
 }
 
 .f250-page.f250-su-jeremiah-page .f250-su-final-cta-actions .btn-alternate {
   border-color: #ffffff !important;
   color: #ffffff !important;
+  background-color: transparent !important;
 }
 
 .f250-page.f250-su-jeremiah-page .f250-su-final-cta-actions .btn-standard {
