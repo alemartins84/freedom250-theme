@@ -1,6 +1,9 @@
 /* Freedom250 Marketing Page Components
    Load this AFTER f250-base-clean.css only on the marketing / sales pages.
 --------------------------------------------------------------------------------*/
+.f250-page.f250-conference-page {
+  overflow-x: hidden;
+}
 
 /* ==========================================================================
    Shared Freedom250 Marketing System
@@ -3099,30 +3102,21 @@ html.f250-editor-mode .f250-essentials-path-only {
   gap: 18px;
   align-items: center;
   justify-content: space-between;
-
   max-width: 760px;
   margin: 36px auto 0;
   padding: 20px 24px;
-
   border-radius: 18px;
-
   background: rgba(255, 255, 255, 0.68);
-
   border: 1px solid rgba(30, 42, 68, 0.08);
-
   backdrop-filter: blur(8px);
 }
 
-.f250-page.f250-conference-page .f250-pathway-guidance p {
+.f250-page.f250-conference-page .f250-pathway-guidance .f250-section-text {
   flex: 1;
-
   margin: 0;
-
   color: #64708a;
-
   font-size: 14.5px;
   line-height: 1.65;
-
   text-align: left;
 }
 
