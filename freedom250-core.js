@@ -320,6 +320,73 @@
 
   }
 
+    function setupVideoModal() {
+
+    var modal = document.getElementById("f250VideoModal");
+    var frame = document.getElementById("f250VideoFrame");
+
+    if (!modal || !frame) return;
+
+    var cards = document.querySelectorAll(".f250-video-card");
+    var closeBtn = document.querySelector(".f250-video-close");
+    var backdrop = document.querySelector(".f250-video-modal-backdrop");
+
+    function openVideo(url) {
+
+      if (!url) return;
+
+      frame.src = url;
+
+      modal.classList.add("is-open");
+
+      modal.setAttribute("aria-hidden", "false");
+
+      document.body.style.overflow = "hidden";
+
+    }
+
+    function closeVideo() {
+
+      frame.src = "";
+
+      modal.classList.remove("is-open");
+
+      modal.setAttribute("aria-hidden", "true");
+
+      document.body.style.overflow = "";
+
+    }
+
+    cards.forEach(function (card) {
+
+      card.addEventListener("click", function () {
+
+        if (card.classList.contains("f250-video-coming-soon")) return;
+
+        openVideo(card.getAttribute("data-video"));
+
+      });
+
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeVideo);
+    }
+
+    if (backdrop) {
+      backdrop.addEventListener("click", closeVideo);
+    }
+
+    document.addEventListener("keydown", function (e) {
+
+      if (e.key === "Escape") {
+        closeVideo();
+      }
+
+    });
+
+  }
+
   setEditorMode();
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -341,6 +408,8 @@
 
     setupAudioCards();
     setupVioletFlamePlayer();
+
+    setupVideoModal();
 
     setupF250PackageButtons();
 
