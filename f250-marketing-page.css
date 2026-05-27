@@ -4695,23 +4695,17 @@ html.f250-editor-mode .f250-essentials-path-only {
 .f250-page.f250-su-jeremiah-page .f250-su-final-cta-card {
   position: relative;
   overflow: hidden;
-
   max-width: 980px;
   margin: 0 auto;
-
   padding: 72px 64px;
-
   border-radius: 36px;
-
   text-align: center;
-
   background:
     linear-gradient(135deg,
       rgba(255, 255, 255, .06),
       rgba(255, 255, 255, .02));
 
   border: 1px solid rgba(255, 255, 255, .08);
-
   box-shadow:
     0 30px 100px rgba(0, 0, 0, .22);
 }
@@ -4728,12 +4722,10 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: #ffffff;
 }
 
-.f250-page.f250-su-jeremiah-page .f250-su-final-cta-card p {
+.f250-page.f250-su-jeremiah-page .f250-su-final-cta-card .f250-section-text {
   max-width: 720px;
   margin: 0 auto;
-
   color: rgba(255, 255, 255, .82);
-
   font-size: 18px;
   line-height: 1.75;
 }
