@@ -139,35 +139,35 @@
     var params = new URLSearchParams(window.location.search);
     var lang = params.get("lang");
 
-  if (validLanguages.indexOf(lang) !== -1) {
-    localStorage.setItem(languageStorageKey, lang);
-    return lang;
-  }
+    if (validLanguages.indexOf(lang) !== -1) {
+      localStorage.setItem(languageStorageKey, lang);
+      return lang;
+    }
 
-  lang = localStorage.getItem(languageStorageKey);
+    lang = localStorage.getItem(languageStorageKey);
 
-  if (validLanguages.indexOf(lang) !== -1) {
-    return lang;
-  }
+    if (validLanguages.indexOf(lang) !== -1) {
+      return lang;
+    }
 
-  localStorage.setItem(languageStorageKey, "en");
+    localStorage.setItem(languageStorageKey, "en");
     return "en";
   }
 
   function setLanguageState() {
-  var lang = getLanguage();
+    var lang = getLanguage();
 
-  document.documentElement.setAttribute("data-f250-language", lang);
+    document.documentElement.setAttribute("data-f250-language", lang);
 
-  if (document.body) {
-    document.body.classList.remove(
-      "f250-lang-en",
-      "f250-lang-es",
-      "f250-lang-pt"
-    );
+    if (document.body) {
+      document.body.classList.remove(
+        "f250-lang-en",
+        "f250-lang-es",
+        "f250-lang-pt"
+      );
 
-    document.body.classList.add("f250-lang-" + lang);
-  }
+      document.body.classList.add("f250-lang-" + lang);
+    }
 
     return lang;
   }
@@ -199,7 +199,7 @@
           link.setAttribute("href", url.toString());
         }
 
-      } catch (e) {}
+      } catch (e) { }
     });
   }
 
@@ -320,69 +320,88 @@
 
   }
 
-    function setupVideoModal() {
+  function setupVideoModal() {
 
     var modal = document.getElementById("f250VideoModal");
     var frame = document.getElementById("f250VideoFrame");
 
     if (!modal || !frame) return;
-
-    var cards = document.querySelectorAll(".f250-video-card");
+    var videoButtons = document.querySelectorAll(".f250-video-watch");
     var closeBtn = document.querySelector(".f250-video-close");
     var backdrop = document.querySelector(".f250-video-modal-backdrop");
-
     function openVideo(url) {
 
       if (!url) return;
 
-      frame.src = url;
-
+      frame.src = url + "?autoplay=1";
       modal.classList.add("is-open");
-
       modal.setAttribute("aria-hidden", "false");
-
       document.body.style.overflow = "hidden";
-
     }
 
     function closeVideo() {
-
       frame.src = "";
-
       modal.classList.remove("is-open");
-
       modal.setAttribute("aria-hidden", "true");
-
       document.body.style.overflow = "";
 
     }
+    videoButtons.forEach(function (button) {
 
-    cards.forEach(function (card) {
+      button.addEventListener("click", function () {
 
-      card.addEventListener("click", function () {
-
-        if (card.classList.contains("f250-video-coming-soon")) return;
-
-        openVideo(card.getAttribute("data-video"));
+        var url = button.getAttribute("data-video");
+        openVideo(url);
 
       });
-
     });
 
     if (closeBtn) {
-      closeBtn.addEventListener("click", closeVideo);
-    }
+      closeBtn.addEventListener("click", function () {
+        closeVideo();
+      });
 
+    }
     if (backdrop) {
-      backdrop.addEventListener("click", closeVideo);
+      backdrop.addEventListener("click", function () {
+        closeVideo();
+      });
     }
 
     document.addEventListener("keydown", function (e) {
-
       if (e.key === "Escape") {
         closeVideo();
       }
+    });
+  }
 
+    function setupRevealAnimations() {
+
+    var revealElements = document.querySelectorAll(".f250-reveal");
+
+    if (!revealElements.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+
+      entries.forEach(function (entry) {
+
+        if (entry.isIntersecting) {
+
+          entry.target.classList.add("is-visible");
+
+          observer.unobserve(entry.target);
+
+        }
+
+      });
+
+    }, {
+      threshold: 0.12,
+      rootMargin: "0px 0px -8% 0px"
+    });
+
+    revealElements.forEach(function (el) {
+      observer.observe(el);
     });
 
   }
@@ -397,12 +416,12 @@
       return;
     }
 
-    captureMemberPrefillParams();    
+    captureMemberPrefillParams();
 
     getMemberPrefill();
 
     var audience = setAudienceState();
-    var lang = setLanguageState();   
+    var lang = setLanguageState();
 
     preserveAudienceLinks(audience, lang);
 
@@ -412,6 +431,8 @@
     setupVideoModal();
 
     setupF250PackageButtons();
+
+    setupRevealAnimations();
 
   });
 
