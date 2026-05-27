@@ -4510,7 +4510,6 @@ html.f250-editor-mode .f250-essentials-path-only {
 
 .f250-page.f250-su-jeremiah-page .f250-su-registration {
   position: relative;
-
   background:
     radial-gradient(circle at 20% 20%, rgba(201, 154, 63, .10), transparent 26%),
     radial-gradient(circle at 80% 80%, rgba(22, 56, 112, .08), transparent 30%),
@@ -4542,58 +4541,18 @@ html.f250-editor-mode .f250-essentials-path-only {
 
 .f250-page.f250-su-jeremiah-page .f250-su-registration-card {
   position: relative;
-
   display: flex;
   flex-direction: column;
-
   padding: 42px 40px;
-
   border-radius: 32px;
-
-  background:
-    linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
-
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
   border: 1px solid rgba(22, 34, 68, .08);
-
-  box-shadow:
-    0 22px 70px rgba(13, 27, 53, .06);
-}
-
-.f250-page.f250-su-jeremiah-page .f250-su-registration-featured {
-  border: 1px solid rgba(201, 154, 63, .28);
-
-  box-shadow:
-    0 28px 90px rgba(201, 154, 63, .10),
-    0 22px 70px rgba(13, 27, 53, .08);
-}
-
-.f250-page.f250-su-jeremiah-page .f250-su-registration-badge {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-
-  padding: 7px 12px;
-
-  border-radius: 999px;
-
-  background:
-    linear-gradient(135deg,
-      #f6d58b 0%,
-      #e7b45a 100%);
-
-  color: #16234a;
-
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: .12em;
-  text-transform: uppercase;
+  box-shadow: 0 22px 70px rgba(13, 27, 53, .06);
 }
 
 .f250-page.f250-su-jeremiah-page .f250-su-registration-label {
   margin-bottom: 18px;
-
   color: var(--f250-gold);
-
   font-size: 11px;
   font-weight: 900;
   letter-spacing: .14em;
@@ -4602,77 +4561,95 @@ html.f250-editor-mode .f250-essentials-path-only {
 
 .f250-page.f250-su-jeremiah-page .f250-su-registration-card h3 {
   margin: 0 0 18px;
-
   font-family: var(--font-heading);
-
-  font-size: 40px;
+  font-size: 36px;
   line-height: 1.05;
   font-weight: 500;
-
   color: var(--f250-navy);
 }
 
 .f250-page.f250-su-jeremiah-page .f250-su-registration-description {
   margin-bottom: 28px;
-
   color: var(--f250-muted);
-
   font-size: 17px;
   line-height: 1.72;
 }
 
-.f250-page.f250-su-jeremiah-page .f250-su-registration-features {
-  margin: 0 0 34px;
-  padding: 0;
-  list-style: none;
+/* Mode rows inside each card */
+.f250-page.f250-su-jeremiah-page .f250-su-option-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(248, 247, 243, .78);
+  border: 1px solid rgba(22, 34, 68, .08);
 }
 
-.f250-page.f250-su-jeremiah-page .f250-su-registration-features li {
-  position: relative;
+.f250-page.f250-su-jeremiah-page .f250-su-option-row strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--f250-navy);
+  font-size: 18px;
+  line-height: 1.25;
+}
 
-  padding-left: 24px;
-  margin-bottom: 16px;
-
+.f250-page.f250-su-jeremiah-page .f250-su-option-row span {
+  display: block;
   color: var(--f250-muted);
-
-  font-size: 15.5px;
-  line-height: 1.68;
+  font-size: 14px;
+  line-height: 1.45;
 }
 
-.f250-page.f250-su-jeremiah-page .f250-su-registration-features li::before {
-  content: "";
-
-  position: absolute;
-  top: 11px;
-  left: 0;
-
-  width: 8px;
-  height: 8px;
-
-  border-radius: 50%;
-
-  background: var(--f250-gold);
+.f250-page.f250-su-jeremiah-page .f250-su-option-featured {
+  background: linear-gradient(180deg, #fffaf0 0%, #ffffff 100%);
+  border-color: rgba(201, 154, 63, .28);
+  box-shadow: 0 16px 44px rgba(201, 154, 63, .08);
 }
 
-.f250-page.f250-su-jeremiah-page .f250-su-registration-actions {
-  margin-top: auto;
-}
-
-.f250-page.f250-su-jeremiah-page .f250-su-registration-actions .btn {
-  width: 100%;
+.f250-page.f250-su-jeremiah-page .f250-su-option-row .btn {
+  min-width: 180px;
   justify-content: center;
+  white-space: nowrap;
+}
+
+.f250-page.f250-su-jeremiah-page .f250-su-option-row .btn.btn-alternate {
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(22,34,68,.16);  
+  color: var(--f250-navy);
+  backdrop-filter: blur(8px);
+}
+
+.f250-page.f250-su-jeremiah-page .f250-su-option-row .btn.btn-alternate:hover {
+  background: rgba(22,34,68,.04);
+  border-color: rgba(22,34,68,.26);
+}
+
+/* Full Journey note */
+.f250-page.f250-su-jeremiah-page .f250-su-full-journey-note {
+  max-width: 860px;
+  margin: 34px auto 0;
+  padding: 20px 24px;
+  border-radius: 18px;
+  text-align: center;
+  color: var(--f250-muted);
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid rgba(201, 154, 63, .18);
+}
+
+.f250-page.f250-su-jeremiah-page .f250-su-full-journey-note strong {
+  color: var(--f250-navy);
 }
 
 @media (max-width: 900px) {
-
   .f250-page.f250-su-jeremiah-page .f250-su-registration-grid {
     grid-template-columns: 1fr;
   }
-
 }
 
 @media (max-width: 767px) {
-
   .f250-page.f250-su-jeremiah-page .f250-su-registration-card {
     padding: 36px 28px;
     border-radius: 26px;
@@ -4682,8 +4659,15 @@ html.f250-editor-mode .f250-essentials-path-only {
     font-size: 34px;
   }
 
-}
+  .f250-page.f250-su-jeremiah-page .f250-su-option-row {
+    grid-template-columns: 1fr;
+  }
 
+  .f250-page.f250-su-jeremiah-page .f250-su-option-row .btn {
+    min-width: 165px;
+    padding-inline: 22px;
+  }
+}
 .f250-page.f250-su-jeremiah-page .f250-su-final-cta {
   background:
     radial-gradient(circle at top right, rgba(201, 154, 63, .18), transparent 26%),
