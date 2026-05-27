@@ -225,6 +225,11 @@ body.f250-audience-seekers .f250-essentials-path-only {
   display: block !important;
 }
 
+body.f250-lang-en .f250-seeker-es,
+body.f250-lang-es .f250-seeker-en {
+  display: none !important;
+}
+
 /* Editor mode: show everything */
 html.f250-editor-mode .f250-main-path-only,
 html.f250-editor-mode .f250-essentials-path-only {
@@ -3029,7 +3034,7 @@ body.f250-editor-mode .f250-reveal {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
-  max-width: 960px;
+  max-width: 1040px;
   margin: 0 auto;
 }
 
@@ -3101,10 +3106,57 @@ body.f250-editor-mode .f250-reveal {
   box-shadow: 0 0 0 4px rgba(200, 154, 60, 0.12);
 }
 
-.f250-page.f250-conference-page .f250-pathway-card .btn {
-  margin-top: auto;
+/* Option rows */
+.f250-page.f250-conference-page .f250-pathway-option-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(248, 247, 243, 0.78);
+  border: 1px solid rgba(22, 34, 68, 0.08);
 }
 
+.f250-page.f250-conference-page .f250-pathway-option-row strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--f250-navy);
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.f250-page.f250-conference-page .f250-pathway-option-row span {
+  display: block;
+  color: var(--f250-muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.f250-page.f250-conference-page .f250-pathway-option-featured {
+  background: linear-gradient(180deg, #fffaf0 0%, #ffffff 100%);
+  border-color: rgba(201, 154, 63, 0.28);
+  box-shadow: 0 16px 44px rgba(201, 154, 63, 0.08);
+}
+
+.f250-page.f250-conference-page .f250-pathway-mini-label {
+  margin-bottom: 6px;
+  color: var(--f250-gold);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.f250-page.f250-conference-page .f250-pathway-option-row .btn {
+  min-width: 165px;
+  padding-inline: 22px;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/* Guidance */
 .f250-page.f250-conference-page .f250-pathway-guidance {
   display: flex;
   gap: 18px;
@@ -3144,24 +3196,6 @@ body.f250-editor-mode .f250-reveal {
   border-color: rgba(195, 161, 86, 0.42) !important;
 }
 
-
-@media (max-width: 700px) {
-
-  .f250-page.f250-conference-page .f250-pathway-guidance {
-    display: block;
-    text-align: center;
-  }
-
-  .f250-page.f250-conference-page .f250-pathway-guidance p {
-    text-align: center;
-  }
-
-  .f250-page.f250-conference-page .f250-pathway-guidance .btn {
-    margin-top: 18px;
-  }
-
-}
-
 @media (max-width: 900px) {
   .f250-page.f250-conference-page .f250-pathways {
     padding-top: 90px;
@@ -3175,6 +3209,30 @@ body.f250-editor-mode .f250-reveal {
 
   .f250-page.f250-conference-page .f250-pathway-card {
     padding: 36px 28px;
+  }
+}
+
+@media (max-width: 700px) {
+  .f250-page.f250-conference-page .f250-pathway-guidance {
+    display: block;
+    text-align: center;
+  }
+
+  .f250-page.f250-conference-page .f250-pathway-guidance p {
+    text-align: center;
+  }
+
+  .f250-page.f250-conference-page .f250-pathway-guidance .btn {
+    margin-top: 18px;
+  }
+
+  .f250-page.f250-conference-page .f250-pathway-option-row {
+    grid-template-columns: 1fr;
+  }
+
+  .f250-page.f250-conference-page .f250-pathway-option-row .btn {
+    width: 100%;
+    min-width: 0;
   }
 }
 
