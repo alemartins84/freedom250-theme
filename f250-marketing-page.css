@@ -3124,6 +3124,18 @@ html.f250-editor-mode .f250-essentials-path-only {
   flex-shrink: 0;
 }
 
+.f250-page.f250-conference-page .f250-essentials-path-only .btn.btn-standard {
+  background: rgba(255,255,255,0.58) !important;
+  border: 1px solid rgba(195, 161, 86, 0.24) !important;
+  color: #17315f !important;
+  backdrop-filter: blur(10px);
+}
+.f250-page.f250-conference-page .f250-essentials-path-only .btn.btn-standard:hover {
+  background: rgba(255,255,255,0.82) !important; 
+  border-color: rgba(195,161,86,0.42) !important;
+}
+
+
 @media (max-width: 700px) {
 
   .f250-page.f250-conference-page .f250-pathway-guidance {
