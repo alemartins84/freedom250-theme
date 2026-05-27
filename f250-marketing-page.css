@@ -5017,7 +5017,7 @@ html.f250-editor-mode .f250-essentials-path-only {
   box-shadow: 0 24px 70px rgba(13, 27, 53, .07);
 }
 
-.f250-page.f250-su-jeremiah-page .f250-su-testimonial-card p {
+.f250-page.f250-su-jeremiah-page .f250-su-testimonial-card .f250-section-text {
   margin: 0 0 18px;
   font-family: var(--font-heading);
   font-size: clamp(30px, 4vw, 48px);
