@@ -4472,11 +4472,9 @@ html.f250-editor-mode .f250-essentials-path-only {
   color: var(--f250-navy);
 }
 
-.f250-page.f250-su-jeremiah-page .f250-su-receive-card p {
+.f250-page.f250-su-jeremiah-page .f250-su-receive-card .f250-section-text {
   margin: 0;
-
   color: var(--f250-muted);
-
   font-size: 15.5px;
   line-height: 1.72;
 }
