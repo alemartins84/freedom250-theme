@@ -248,6 +248,28 @@
 
   }
 
+  function setupF250PrefillLinks() {
+    document.querySelectorAll(".js-f250-prefill-link").forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        var url = link.getAttribute("data-url") || link.getAttribute("href");
+        if (!url) return;
+        var prefill = getMemberPrefill();
+        if (!prefill) return;
+        e.preventDefault();
+        var finalUrl = new URL(url, window.location.origin);
+        if (prefill.email) {
+          finalUrl.searchParams.set("email", prefill.email);
+        }
+        if (prefill.memberId) {
+          finalUrl.searchParams.set("c_3975805", prefill.memberId);
+        }
+        window.location.href = finalUrl.toString();
+      });
+
+    });
+
+  }
+
   function setupAudioCards() {
 
     document.querySelectorAll(".f250-audio-card").forEach(function (card) {
@@ -375,7 +397,7 @@
     });
   }
 
-    function setupRevealAnimations() {
+  function setupRevealAnimations() {
 
     var revealElements = document.querySelectorAll(".f250-reveal");
 
@@ -431,6 +453,7 @@
     setupVideoModal();
 
     setupF250PackageButtons();
+    setupF250PrefillLinks();
 
     setupRevealAnimations();
 
