@@ -343,59 +343,98 @@
   }
 
   function setupVideoModal() {
-
     var modal = document.getElementById("f250VideoModal");
     var frame = document.getElementById("f250VideoFrame");
 
     if (!modal || !frame) return;
-    var videoButtons = document.querySelectorAll(".f250-video-watch");
-    var closeBtn = document.querySelector(".f250-video-close");
-    var backdrop = document.querySelector(".f250-video-modal-backdrop");
-    function openVideo(url) {
 
-      if (!url) return;
+    var videoButtons = document.querySelectorAll(".f250-home-hub .f250-video-watch[data-video]");
+    var closeTriggers = modal.querySelectorAll("[data-video-close='true']");
+    var lastFocusedElement = null;
 
-      frame.src = url + "?autoplay=1";
-      modal.classList.add("is-open");
-      modal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
+    function buildVideoUrl(url) {
+      try {
+        var videoUrl = new URL(url, window.location.origin);
 
-    function closeVideo() {
-      frame.src = "";
-      modal.classList.remove("is-open");
-      modal.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
+        videoUrl.searchParams.set("autoplay", "1");
+        videoUrl.searchParams.set("title", "0");
+        videoUrl.searchParams.set("byline", "0");
+        videoUrl.searchParams.set("portrait", "0");
 
-    }
-    videoButtons.forEach(function (button) {
-
-      button.addEventListener("click", function () {
-
-        var url = button.getAttribute("data-video");
-        openVideo(url);
-
-      });
-    });
-
-    if (closeBtn) {
-      closeBtn.addEventListener("click", function () {
-        closeVideo();
-      });
-
-    }
-    if (backdrop) {
-      backdrop.addEventListener("click", function () {
-        closeVideo();
-      });
-    }
-
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") {
-        closeVideo();
+        return videoUrl.toString();
+      } catch (e) {
+        return url;
       }
-    });
+    }
+
+  function openVideo(url) {
+    if (!url) return;
+
+    lastFocusedElement = document.activeElement;
+
+    frame.src = buildVideoUrl(url);
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+
+    document.body.classList.add("f250-video-open");
+    document.body.style.overflow = "hidden";
+
+    var closeBtn = modal.querySelector(".f250-video-close");
+    if (closeBtn) closeBtn.focus();
   }
+
+  function closeVideo() {
+    frame.src = "about:blank";
+
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+
+    document.body.classList.remove("f250-video-open");
+    document.body.style.overflow = "";
+
+    if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+      lastFocusedElement.focus();
+    }
+  }
+
+  videoButtons.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+      openVideo(button.getAttribute("data-video"));
+    });
+
+    var card = button.closest(".f250-video-card");
+
+    if (card) {
+
+      var thumb = card.querySelector(".f250-video-thumb");
+
+      if (thumb) {
+
+        thumb.style.cursor = "pointer";
+
+        thumb.addEventListener("click", function () {
+          openVideo(button.getAttribute("data-video"));
+        });
+
+      }
+
+    }
+
+  });
+
+  closeTriggers.forEach(function (trigger) {
+    trigger.addEventListener("click", closeVideo);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (!modal.classList.contains("is-open")) return;
+
+    if (e.key === "Escape") {
+      closeVideo();
+    }
+  });
+}
 
   function setupRevealAnimations() {
 

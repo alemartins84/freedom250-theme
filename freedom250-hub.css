@@ -190,122 +190,304 @@
   }
 }
 
-/* Freedom250 Home Video Section */
+/* ==========================================================================
+   FREEDOM250 — HOME HUB VIDEO SECTION
+   ========================================================================== */
+
 .f250-home-hub .f250-video-section {
-  padding: 90px 24px;
-  background: #f7f4ee;
+  position: relative;
+  overflow: hidden;
+  padding: 96px 24px 104px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(199, 149, 56, 0.14), transparent 34%),
+    linear-gradient(180deg, #fbfaf7 0%, #f3efe7 100%);
   color: #082b57;
 }
 
 .f250-home-hub .f250-video-container {
-  max-width: 1080px;
+  max-width: 1180px;
   margin: 0 auto;
   text-align: center;
 }
 
+.f250-home-hub .f250-video-section .f250-eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #c79538;
+}
+
 .f250-home-hub .f250-video-section h2 {
-  margin: 8px 0 14px;
+  max-width: 820px;
+  margin: 8px auto 16px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(32px, 4vw, 52px);
-  line-height: 1.05;
+  font-size: clamp(38px, 4.5vw, 64px);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
   color: #082b57;
 }
 
 .f250-home-hub .f250-video-intro {
-  max-width: 720px;
-  margin: 0 auto 38px;
-  color: #214061;
+  max-width: 760px;
+  margin: 0 auto 46px;
+  color: #244562;
   font-size: 17px;
-  line-height: 1.7;
+  line-height: 1.72;
 }
+
+/* ==========================================================================
+   VIDEO GRID
+   ========================================================================== */
 
 .f250-home-hub .f250-video-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
   align-items: stretch;
 }
 
 .f250-home-hub .f250-video-card {
-  position: relative;
-  min-height: 245px;
-  width: 100%;
-  border: 1px solid rgba(8, 43, 87, 0.12);
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 24px;  
   text-align: left;
-  cursor: pointer;
-  box-shadow: 0 14px 34px rgba(8, 43, 87, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 24px 60px rgba(8, 43, 87, 0.10);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
 }
 
 .f250-home-hub .f250-video-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 44px rgba(8, 43, 87, 0.14);
-  border-color: rgba(199, 149, 56, 0.35);
+  transform: translateY(-5px);
+  box-shadow: 0 30px 75px rgba(8, 43, 87, 0.16);
+  border-color: rgba(199, 149, 56, 0.34);
+}
+
+/* ==========================================================================
+   VIDEO THUMB
+   ========================================================================== */
+
+.f250-home-hub .f250-video-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #07152f;
+  border-radius: 0;
+  cursor: pointer;
+  border: 0;
+}
+
+.f250-home-hub .f250-video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.2);
+  transition: transform 0.4s ease;
+  border-radius: 0;
+}
+
+.f250-home-hub .f250-video-card:hover .f250-video-thumb img {
+  transform: scale(1.045);
+}
+
+.f250-home-hub .f250-video-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7, 21, 47, 0.02),
+      rgba(7, 21, 47, 0.30)
+    );
+}
+
+/* ==========================================================================
+   PLAY BADGE
+   ========================================================================== */
+
+.f250-home-hub .f250-video-play-badge {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 54px;
+  height: 54px;
+
+  border-radius: 999px;
+
+  background: #082b57;
+  color: #ffffff;
+
+  box-shadow:
+    0 14px 34px rgba(8, 43, 87, 0.28);
+
+  font-size: 18px;
+  padding-left: 3px;
+}
+
+/* ==========================================================================
+   COMING SOON BADGE
+   ========================================================================== */
+
+.f250-home-hub .f250-video-coming-badge {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2;
+
+  background: rgba(255, 255, 255, 0.94);
+  color: #082b57;
+
+  padding: 8px 12px;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   CARD CONTENT
+   ========================================================================== */
+
+.f250-home-hub .f250-video-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 24px 24px 22px;
 }
 
 .f250-home-hub .f250-video-label {
   display: inline-block;
-  color: #c79538;
+
+  margin-bottom: 12px;
+
+  color: #b8862f;
+
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
+
   font-size: 11px;
   font-weight: 800;
-  margin-bottom: 16px;
 }
 
 .f250-home-hub .f250-video-card h3 {
-  margin: 0 0 14px;
-  font-family: inherit;
-  color: #082b57;
-  font-size: 23px;
+  margin: 0 0 12px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
   line-height: 1.08;
-  font-weight: 600;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+
+  color: #082b57;
 }
 
-.f250-home-hub .f250-video-card p {
-  margin: 0;
+.f250-home-hub .f250-video-description {
+  margin: 0 0 22px;
+
   color: #294764;
-  font-size: 15px;
-  line-height: 1.55;
+
+  font-size: 15.5px;
+  line-height: 1.62;
 }
+
+/* ==========================================================================
+   ACTIONS
+   ========================================================================== */
+
+.f250-home-hub .f250-video-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  margin-top: auto;
+}
+
+.f250-home-hub .f250-video-primary,
+.f250-home-hub .f250-video-link,
+.f250-home-hub .f250-video-watch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+  padding: 11px 16px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Primary */
+
+.f250-home-hub .f250-video-primary,
+.f250-home-hub .f250-video-watch {
+  border: 1px solid #082b57;
+  background: #082b57;
+  color: #ffffff;
+}
+
+.f250-home-hub .f250-video-primary:hover,
+.f250-home-hub .f250-video-watch:hover {
+  background: #0d3f7d;
+  border-color: #0d3f7d;
+  color: #ffffff;
+}
+
+/* Secondary */
+
+.f250-home-hub .f250-video-link {
+  border: 1px solid rgba(8, 43, 87, 0.14);
+  background: #ffffff;
+  color: #082b57;
+}
+
+.f250-home-hub .f250-video-link:hover {
+  border-color: rgba(8, 43, 87, 0.28);
+  color: #082b57;
+}
+
+/* ==========================================================================
+   COMING SOON STATE
+   ========================================================================== */
 
 .f250-home-hub .f250-video-coming-soon {
-  opacity: 0.58;
-  filter: grayscale(0.18);
-  cursor: default;
-  padding-bottom: 58px;
+  opacity: 0.88;
 }
 
 .f250-home-hub .f250-video-coming-soon:hover {
   transform: none;
-  box-shadow: 0 14px 34px rgba(8, 43, 87, 0.08);
-  border-color: rgba(8, 43, 87, 0.12);
 }
 
-.f250-home-hub .f250-video-coming-soon::after {
-  content: "Coming Soon";
-  position: absolute;
-  left: 24px;
-  bottom: 20px;
-  background: rgba(8, 43, 87, 0.06);
-  color: #5f6f86;
-  border: 1px solid rgba(8, 43, 87, 0.08);
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
+/* ==========================================================================
+   VIDEO MODAL
+   ========================================================================== */
 
 .f250-home-hub .f250-video-modal {
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 99999;
 }
 
 .f250-home-hub .f250-video-modal.is-open {
@@ -315,62 +497,105 @@
 .f250-home-hub .f250-video-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(5, 14, 35, 0.78);
+
+  background: rgba(3, 10, 24, 0.84);
+
+  backdrop-filter: blur(6px);
 }
 
 .f250-home-hub .f250-video-modal-content {
   position: relative;
-  width: min(920px, calc(100% - 32px));
-  margin: 8vh auto;
-  background: #07152f;
-  border-radius: 18px;
-  padding: 18px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+
+  width: min(1040px, calc(100% - 32px));
+
+  margin: 6vh auto;
+
+  background: #06142c;
+
+  border-radius: 22px;
+
+  padding: 16px;
+
+  box-shadow:
+    0 34px 100px rgba(0, 0, 0, 0.48);
 }
 
 .f250-home-hub .f250-video-close {
   position: absolute;
-  top: -44px;
+  top: -48px;
   right: 0;
-  border: 0;
-  background: transparent;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.10);
+
   color: #ffffff;
-  font-size: 38px;
-  line-height: 1;
+
+  font-size: 32px;
+  line-height: 36px;
+
   cursor: pointer;
 }
 
 .f250-home-hub .f250-video-frame-wrap {
   position: relative;
+
   padding-bottom: 56.25%;
   height: 0;
+
   overflow: hidden;
-  border-radius: 12px;
+
+  border-radius: 14px;
+
+  background: #000000;
 }
 
 .f250-home-hub .f250-video-frame-wrap iframe {
   position: absolute;
   inset: 0;
+
   width: 100%;
   height: 100%;
 }
 
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
 @media (max-width: 1100px) {
+
   .f250-home-hub .f250-video-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
 }
 
-@media (max-width: 640px) {
+@media (max-width: 680px) {
+
   .f250-home-hub .f250-video-section {
-    padding: 64px 18px;
+    padding: 68px 16px 76px;
   }
 
   .f250-home-hub .f250-video-grid {
     grid-template-columns: 1fr;
   }
 
-  .f250-home-hub .f250-video-card {
-    min-height: auto;
+  .f250-home-hub .f250-video-section h2 {
+    font-size: 46px;
   }
+
+  .f250-home-hub .f250-video-card h3 {
+    font-size: 25px;
+  }
+
+  .f250-home-hub .f250-video-modal-content {
+    margin: 12vh auto;
+    padding: 10px;
+    border-radius: 16px;
+  }
+
 }
