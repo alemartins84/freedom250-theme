@@ -3030,6 +3030,33 @@ body.f250-editor-mode .f250-reveal {
   line-height: 1.72;
 }
 
+.f250-page.f250-conference-page .f250-group-pathway-notice {
+  max-width: 780px;
+  margin: 0 auto 36px;
+  padding: 34px 32px;
+  border-radius: 24px;
+  background: #ffffff;
+  border: 1px solid rgba(201, 154, 63, 0.22);
+  box-shadow: 0 18px 50px rgba(13, 27, 53, 0.06);
+  text-align: center;
+}
+
+.f250-page.f250-conference-page .f250-group-pathway-notice h3 {
+  margin: 12px 0 14px;
+  font-family: var(--font-heading);
+  font-size: 30px;
+  line-height: 1.1;
+  color: var(--f250-navy);
+}
+
+.f250-page.f250-conference-page .f250-group-pathway-notice .f250-section-text {
+  max-width: 620px;
+  margin: 0 auto 22px;
+  color: var(--f250-muted);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
 .f250-page.f250-conference-page .f250-pathways-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
