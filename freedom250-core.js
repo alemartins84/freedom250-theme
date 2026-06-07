@@ -3,6 +3,16 @@
   var MEMBER_PREFILL_KEY = "f250MemberPrefill";
   var MEMBER_PREFILL_TTL_MS = 2 * 60 * 60 * 1000; // 2 hours
 
+  var F250_UTM_KEY = "f250UtmTracking";
+  var F250_UTM_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+  var F250_UTM_FIELDS = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "utm_term"
+  ];
+
   function isSwoogoEditor() {
     var href = window.location.href;
     var referrer = document.referrer || "";
@@ -203,6 +213,59 @@
     });
   }
 
+  function captureUtmParams() {
+    var params = new URLSearchParams(window.location.search);
+    var payload = {};
+    var found = false;
+
+    F250_UTM_FIELDS.forEach(function (field) {
+      var value = params.get(field);
+      if (value) {
+        payload[field] = value;
+        found = true;
+      }
+    });
+
+    if (found) {
+      payload.expiresAt = Date.now() + F250_UTM_TTL_MS;
+      localStorage.setItem(F250_UTM_KEY, JSON.stringify(payload));
+    }
+  }
+
+  function getStoredUtms() {
+    try {
+      var raw = localStorage.getItem(F250_UTM_KEY);
+      if (!raw) return null;
+
+      var payload = JSON.parse(raw);
+
+      if (!payload.expiresAt || Date.now() > payload.expiresAt) {
+        localStorage.removeItem(F250_UTM_KEY);
+        return null;
+      }
+
+      return payload;
+    } catch (e) {
+      localStorage.removeItem(F250_UTM_KEY);
+      return null;
+    }
+  }
+
+  function appendStoredUtmsToUrl(url) {
+    var utms = getStoredUtms();
+    if (!utms) return url;
+
+    F250_UTM_FIELDS.forEach(function (field) {
+      if (utms[field]) {
+        url.searchParams.set(field, utms[field]);
+      }
+    });
+
+    return url;
+  }
+
+
+
   function setupF250PackageButtons() {
 
     document.querySelectorAll(".js-f250-member-package").forEach(function (btn) {
@@ -230,6 +293,7 @@
         if (url) {
 
           var finalUrl = new URL(url, window.location.origin);
+          finalUrl = appendStoredUtmsToUrl(finalUrl);
 
           if (prefill && prefill.email) {
             finalUrl.searchParams.set("email", prefill.email);
@@ -253,21 +317,25 @@
       link.addEventListener("click", function (e) {
         var url = link.getAttribute("data-url") || link.getAttribute("href");
         if (!url) return;
+
         var prefill = getMemberPrefill();
-        if (!prefill) return;
+
         e.preventDefault();
+
         var finalUrl = new URL(url, window.location.origin);
-        if (prefill.email) {
+        finalUrl = appendStoredUtmsToUrl(finalUrl);
+
+        if (prefill && prefill.email) {
           finalUrl.searchParams.set("email", prefill.email);
         }
-        if (prefill.memberId) {
+
+        if (prefill && prefill.memberId) {
           finalUrl.searchParams.set("c_3975805", prefill.memberId);
         }
+
         window.location.href = finalUrl.toString();
       });
-
     });
-
   }
 
   function setupAudioCards() {
@@ -490,6 +558,8 @@
     setupVioletFlamePlayer();
 
     setupVideoModal();
+
+    captureUtmParams();
 
     setupF250PackageButtons();
     setupF250PrefillLinks();
