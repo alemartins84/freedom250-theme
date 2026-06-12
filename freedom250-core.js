@@ -154,12 +154,6 @@
       return lang;
     }
 
-    lang = localStorage.getItem(languageStorageKey);
-
-    if (validLanguages.indexOf(lang) !== -1) {
-      return lang;
-    }
-
     localStorage.setItem(languageStorageKey, "en");
     return "en";
   }

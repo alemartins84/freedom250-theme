@@ -162,6 +162,24 @@
   display: none !important;
 }
 
+/* Conference page language blocks */
+.f250-seeker-en,
+.f250-seeker-es {
+  display: none !important;
+}
+
+body.f250-lang-en .f250-seeker-en {
+  display: block !important;
+}
+
+body.f250-lang-es .f250-seeker-es {
+  display: block !important;
+}
+
+body.f250-lang-pt .f250-seeker-en {
+  display: block !important;
+}
+
 /* Show non-language audience sections */
 body.f250-audience-members .f250-members-only,
 body.f250-audience-groups .f250-groups-only {
