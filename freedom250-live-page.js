@@ -5,10 +5,10 @@
   const playerWrap = app.querySelector(".f250-player-ratio");
   if (!playerWrap) return;
 
-  let streamMap = window.F250_SESSION_STREAMS || {
-    morning: "",
-    afternoon: "",
-    evening: ""
+  const streamMap = {
+    morning: document.getElementById("f250-stream-morning")?.textContent.trim() || "",
+    afternoon: document.getElementById("f250-stream-afternoon")?.textContent.trim() || "",
+    evening: document.getElementById("f250-stream-evening")?.textContent.trim() || ""
   };
 
 
