@@ -2,6 +2,9 @@
   const app = document.getElementById("f250-live-app");
   if (!app) return;
 
+  const playerWrap = app.querySelector(".f250-player-ratio");
+  if (!playerWrap) return;
+
   const streamMap = {
     morning: app.getAttribute("data-stream-morning") || "",
     afternoon: app.getAttribute("data-stream-afternoon") || "",
@@ -14,74 +17,59 @@
     evening: "Welcome to the evening session."
   };
 
-  const iframe = document.getElementById("f250-live-iframe");
-  const playerWrap = app.querySelector(".f250-player-ratio");
   const selectionLabel = document.getElementById("current-selection-label");
   const sessionNote = document.getElementById("session-note");
   const timeButtons = app.querySelectorAll(".time-btn");
 
-  if (!iframe || !playerWrap) return;
-
-  function getEventHour() {
-    const parts = new Intl.DateTimeFormat("en-US", {
-      timeZone: "America/Denver",
-      hour: "numeric",
-      hour12: false
-    }).formatToParts(new Date());
-
-    const hourPart = parts.find(part => part.type === "hour");
-    return hourPart ? parseInt(hourPart.value, 10) : 9;
-  }
-
-  function getDefaultTimeBlock() {
-    const hour = getEventHour();
-
-    if (hour < 12) return "morning";
-    if (hour < 17) return "afternoon";
-    return "evening";
-  }
-
   function cleanUrl(url) {
-    return String(url || "")
-      .replace(/&amp;/g, "&")
-      .trim();
+    return String(url || "").replace(/&amp;/g, "&").trim();
   }
 
   function isValidBoxCastUrl(url) {
-    return (
-      url.indexOf("https://boxcast.tv/") === 0 ||
-      url.indexOf("https://www.boxcast.tv/") === 0
-    );
+    return /^https:\/\/(www\.)?boxcast\.tv\/embed-app\.html/.test(url);
   }
 
   function capitalize(value) {
     return value.charAt(0).toUpperCase() + value.slice(1);
   }
 
-  function setPlaceholder(message) {
-    iframe.removeAttribute("src");
-    iframe.style.display = "none";
+  function getEventHour() {
+    try {
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Denver",
+        hour: "numeric",
+        hour12: false
+      }).formatToParts(new Date());
 
-    let placeholder = playerWrap.querySelector(".f250-stream-placeholder");
-
-    if (!placeholder) {
-      placeholder = document.createElement("div");
-      placeholder.className = "f250-stream-placeholder";
-      playerWrap.appendChild(placeholder);
+      const hourPart = parts.find(part => part.type === "hour");
+      return hourPart ? parseInt(hourPart.value, 10) : 9;
+    } catch (e) {
+      return 9;
     }
-
-    placeholder.textContent = message || "Stream not available yet.";
-    placeholder.style.display = "flex";
   }
 
-  function hidePlaceholder() {
-    const placeholder = playerWrap.querySelector(".f250-stream-placeholder");
+  function getDefaultTimeBlock() {
+    const hour = getEventHour();
+    if (hour < 12) return "morning";
+    if (hour < 17) return "afternoon";
+    return "evening";
+  }
 
-    if (placeholder) {
-      placeholder.style.display = "none";
-    }
+  function showMessage(message) {
+    playerWrap.innerHTML =
+      '<div class="f250-stream-placeholder">' +
+      message +
+      "</div>";
+  }
 
-    iframe.style.display = "block";
+  function showIframe(url) {
+    playerWrap.innerHTML =
+      '<iframe id="f250-live-iframe" ' +
+      'src="' + url + '" ' +
+      'title="Freedom250 Live Stream" ' +
+      'allow="autoplay; fullscreen; picture-in-picture" ' +
+      'allowfullscreen ' +
+      'frameborder="0"></iframe>';
   }
 
   function updatePlayer(timeBlock) {
@@ -97,24 +85,20 @@
     }
 
     if (!url) {
-      setPlaceholder("Stream not available yet.");
+      showMessage("Stream not available yet.");
       return;
     }
 
     if (!isValidBoxCastUrl(url)) {
-      setPlaceholder("The stream link is not valid.");
+      showMessage("The stream link is not valid.");
       return;
     }
 
-    hidePlaceholder();
-
-    if (iframe.getAttribute("src") !== url) {
-      iframe.setAttribute("src", url);
-    }
+    showIframe(url);
   }
 
   function syncActiveButton(timeBlock) {
-    timeButtons.forEach(button => {
+    timeButtons.forEach(function (button) {
       button.classList.toggle(
         "active",
         button.getAttribute("data-time") === timeBlock
@@ -124,7 +108,7 @@
 
   let currentTime = getDefaultTimeBlock();
 
-  timeButtons.forEach(button => {
+  timeButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       currentTime = this.getAttribute("data-time") || "morning";
       syncActiveButton(currentTime);
