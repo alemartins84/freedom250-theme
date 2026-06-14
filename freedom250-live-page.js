@@ -5,11 +5,28 @@
   const playerWrap = app.querySelector(".f250-player-ratio");
   if (!playerWrap) return;
 
-  const streamMap = {
-    morning: app.getAttribute("data-stream-morning") || "",
-    afternoon: app.getAttribute("data-stream-afternoon") || "",
-    evening: app.getAttribute("data-stream-evening") || ""
+  /*
+    Update the BoxCast URLs here.
+    Page links:
+    /essentials-live?day=1
+    /essentials-live?day=2
+    /essentials-live?day=3
+  */
+
+  const dataEl = document.getElementById("f250-session-stream-data");
+  let streamMap = {
+    morning: "",
+    afternoon: "",
+    evening: ""
   };
+
+  if (dataEl) {
+    try {
+      streamMap = JSON.parse(dataEl.textContent);
+    } catch (e) {
+      console.error("F250 stream data could not be parsed.", e);
+    }
+  }
 
   const notes = {
     morning: "Welcome to the morning session.",
@@ -19,6 +36,8 @@
 
   const selectionLabel = document.getElementById("current-selection-label");
   const sessionNote = document.getElementById("session-note");
+  const activeDayLabel = document.getElementById("f250-active-day-label");
+  const titleEl = document.getElementById("f250-live-title");
   const timeButtons = app.querySelectorAll(".time-btn");
 
   function cleanUrl(url) {
@@ -33,6 +52,17 @@
     return value.charAt(0).toUpperCase() + value.slice(1);
   }
 
+  function getDayFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const day = params.get("day");
+    const defaultDay = app.getAttribute("data-default-day") || "1";
+
+    if (day && streamsByDay[day]) return day;
+    if (streamsByDay[defaultDay]) return defaultDay;
+
+    return "1";
+  }
+
   function getEventHour() {
     try {
       const parts = new Intl.DateTimeFormat("en-US", {
@@ -41,7 +71,10 @@
         hour12: false
       }).formatToParts(new Date());
 
-      const hourPart = parts.find(part => part.type === "hour");
+      const hourPart = parts.find(function (part) {
+        return part.type === "hour";
+      });
+
       return hourPart ? parseInt(hourPart.value, 10) : 9;
     } catch (e) {
       return 9;
@@ -50,6 +83,7 @@
 
   function getDefaultTimeBlock() {
     const hour = getEventHour();
+
     if (hour < 12) return "morning";
     if (hour < 17) return "afternoon";
     return "evening";
@@ -57,24 +91,44 @@
 
   function showMessage(message) {
     playerWrap.innerHTML =
-      '<div class="f250-stream-placeholder">' +
-      message +
-      "</div>";
+      '<div class="f250-stream-placeholder">' + message + "</div>";
   }
 
   function showIframe(url) {
     playerWrap.innerHTML =
       '<iframe id="f250-live-iframe" ' +
-      'src="' + url + '" ' +
+      'src="' +
+      url +
+      '" ' +
       'title="Freedom250 Live Stream" ' +
       'allow="autoplay; fullscreen; picture-in-picture" ' +
-      'allowfullscreen ' +
+      "allowfullscreen " +
       'frameborder="0"></iframe>';
+  }
+
+  function syncActiveButton(timeBlock) {
+    timeButtons.forEach(function (button) {
+      button.classList.toggle(
+        "active",
+        button.getAttribute("data-time") === timeBlock
+      );
+    });
+  }
+
+  const activeDay = getDayFromUrl();
+  const activeDayConfig = streamsByDay[activeDay];
+
+  if (activeDayLabel) {
+    activeDayLabel.textContent = activeDayConfig.label || "Day " + activeDay;
+  }
+
+  if (titleEl) {
+    titleEl.textContent = "Essentials Live - " + (activeDayConfig.label || "Day " + activeDay);
   }
 
   function updatePlayer(timeBlock) {
     const selectedTime = timeBlock || getDefaultTimeBlock();
-    const url = cleanUrl(streamMap[selectedTime]);
+    const url = cleanUrl(activeDayConfig[selectedTime]);
 
     if (selectionLabel) {
       selectionLabel.textContent = capitalize(selectedTime);
@@ -95,15 +149,6 @@
     }
 
     showIframe(url);
-  }
-
-  function syncActiveButton(timeBlock) {
-    timeButtons.forEach(function (button) {
-      button.classList.toggle(
-        "active",
-        button.getAttribute("data-time") === timeBlock
-      );
-    });
   }
 
   let currentTime = getDefaultTimeBlock();
