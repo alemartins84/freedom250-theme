@@ -5,15 +5,8 @@
   const playerWrap = app.querySelector(".f250-player-ratio");
   if (!playerWrap) return;
 
-  /*
-    Update the BoxCast URLs here.
-    Page links:
-    /essentials-live?day=1
-    /essentials-live?day=2
-    /essentials-live?day=3
-  */
-
   const dataEl = document.getElementById("f250-session-stream-data");
+
   let streamMap = {
     morning: "",
     afternoon: "",
@@ -28,6 +21,8 @@
     }
   }
 
+  console.log("F250 Streams:", streamMap);
+
   const notes = {
     morning: "Welcome to the morning session.",
     afternoon: "Welcome to the afternoon session.",
@@ -36,8 +31,6 @@
 
   const selectionLabel = document.getElementById("current-selection-label");
   const sessionNote = document.getElementById("session-note");
-  const activeDayLabel = document.getElementById("f250-active-day-label");
-  const titleEl = document.getElementById("f250-live-title");
   const timeButtons = app.querySelectorAll(".time-btn");
 
   function cleanUrl(url) {
@@ -50,17 +43,6 @@
 
   function capitalize(value) {
     return value.charAt(0).toUpperCase() + value.slice(1);
-  }
-
-  function getDayFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    const day = params.get("day");
-    const defaultDay = app.getAttribute("data-default-day") || "1";
-
-    if (day && streamsByDay[day]) return day;
-    if (streamsByDay[defaultDay]) return defaultDay;
-
-    return "1";
   }
 
   function getEventHour() {
@@ -97,12 +79,10 @@
   function showIframe(url) {
     playerWrap.innerHTML =
       '<iframe id="f250-live-iframe" ' +
-      'src="' +
-      url +
-      '" ' +
+      'src="' + url + '" ' +
       'title="Freedom250 Live Stream" ' +
       'allow="autoplay; fullscreen; picture-in-picture" ' +
-      "allowfullscreen " +
+      'allowfullscreen ' +
       'frameborder="0"></iframe>';
   }
 
@@ -115,20 +95,9 @@
     });
   }
 
-  const activeDay = getDayFromUrl();
-  const activeDayConfig = streamsByDay[activeDay];
-
-  if (activeDayLabel) {
-    activeDayLabel.textContent = activeDayConfig.label || "Day " + activeDay;
-  }
-
-  if (titleEl) {
-    titleEl.textContent = "Essentials Live - " + (activeDayConfig.label || "Day " + activeDay);
-  }
-
   function updatePlayer(timeBlock) {
     const selectedTime = timeBlock || getDefaultTimeBlock();
-    const url = cleanUrl(activeDayConfig[selectedTime]);
+    const url = cleanUrl(streamMap[selectedTime]);
 
     if (selectionLabel) {
       selectionLabel.textContent = capitalize(selectedTime);
