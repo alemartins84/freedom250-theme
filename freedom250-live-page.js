@@ -5,21 +5,12 @@
   const playerWrap = app.querySelector(".f250-player-ratio");
   if (!playerWrap) return;
 
-  const dataEl = document.getElementById("f250-session-stream-data");
-
-  let streamMap = {
+  let streamMap = window.F250_SESSION_STREAMS || {
     morning: "",
     afternoon: "",
     evening: ""
   };
 
-  if (dataEl) {
-    try {
-      streamMap = JSON.parse(dataEl.textContent);
-    } catch (e) {
-      console.error("F250 stream data could not be parsed.", e);
-    }
-  }
 
   console.log("F250 Streams:", streamMap);
 
