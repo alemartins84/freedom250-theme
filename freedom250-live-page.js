@@ -9,20 +9,20 @@
     morning: document.getElementById("f250-stream-morning")?.textContent.trim() || "",
     afternoon: document.getElementById("f250-stream-afternoon")?.textContent.trim() || "",
     evening: document.getElementById("f250-stream-evening")?.textContent.trim() || ""
-};
-
+  };
 
   console.log("F250 Streams:", streamMap);
 
   const notes = {
-    morning: "Welcome to the morning session.",
-    afternoon: "Welcome to the afternoon session.",
-    evening: "Welcome to the evening session."
+    morning: "Morning Session: Broadcasts begin with teachings, invocations, and the opening activities of the day.",
+    afternoon: "Afternoon Session: Continue the journey with presentations, workshops, and practical applications.",
+    evening: "Evening Session: Join the evening activities, special services, music, and spiritual practices."
   };
 
   const selectionLabel = document.getElementById("current-selection-label");
   const sessionNote = document.getElementById("session-note");
   const timeButtons = app.querySelectorAll(".time-btn");
+  const mdtClock = document.getElementById("f250-current-mdt");
 
   function cleanUrl(url) {
     return String(url || "").replace(/&amp;/g, "&").trim();
@@ -57,9 +57,22 @@
   function getDefaultTimeBlock() {
     const hour = getEventHour();
 
-    if (hour < 12) return "morning";
-    if (hour < 17) return "afternoon";
+    if (hour < 14) return "morning";
+    if (hour < 19) return "afternoon";
     return "evening";
+  }
+
+  function updateClock() {
+    if (!mdtClock) return;
+
+    const time = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Denver",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true
+    }).format(new Date());
+
+    mdtClock.textContent = time;
   }
 
   function showMessage(message) {
@@ -78,11 +91,19 @@
   }
 
   function syncActiveButton(timeBlock) {
+    const liveBlock = getDefaultTimeBlock();
+
     timeButtons.forEach(function (button) {
-      button.classList.toggle(
-        "active",
-        button.getAttribute("data-time") === timeBlock
-      );
+      const block = button.getAttribute("data-time");
+
+      button.classList.toggle("active", block === timeBlock);
+      button.classList.toggle("live", block === liveBlock);
+
+      const completed =
+        (liveBlock === "afternoon" && block === "morning") ||
+        (liveBlock === "evening" && (block === "morning" || block === "afternoon"));
+
+      button.classList.toggle("completed", completed);
     });
   }
 
@@ -120,6 +141,9 @@
       updatePlayer(currentTime);
     });
   });
+
+  updateClock();
+  setInterval(updateClock, 60000);
 
   syncActiveButton(currentTime);
   updatePlayer(currentTime);
