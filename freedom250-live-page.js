@@ -9,7 +9,7 @@
     morning: document.getElementById("f250-stream-morning")?.textContent.trim() || "",
     afternoon: document.getElementById("f250-stream-afternoon")?.textContent.trim() || "",
     evening: document.getElementById("f250-stream-evening")?.textContent.trim() || ""
-  };
+};
 
 
   console.log("F250 Streams:", streamMap);
