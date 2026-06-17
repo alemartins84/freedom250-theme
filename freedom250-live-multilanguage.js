@@ -15,6 +15,11 @@
       morning: document.getElementById("f250-stream-es-morning")?.textContent.trim() || "",
       afternoon: document.getElementById("f250-stream-es-afternoon")?.textContent.trim() || "",
       evening: document.getElementById("f250-stream-es-evening")?.textContent.trim() || ""
+    },
+    pt: {
+      morning: document.getElementById("f250-stream-pt-morning")?.textContent.trim() || "",
+      afternoon: document.getElementById("f250-stream-pt-afternoon")?.textContent.trim() || "",
+      evening: document.getElementById("f250-stream-pt-evening")?.textContent.trim() || ""
     }
   };
 
@@ -33,7 +38,7 @@
   const selectionLabel = document.getElementById("current-selection-label");
   const sessionNote = document.getElementById("session-note");
   const timeButtons = app.querySelectorAll(".time-btn");
-  const languageButtons = app.querySelectorAll(".language-btn");
+  const streamButtons = app.querySelectorAll("[data-language]");
   const mdtClock = document.getElementById("f250-current-mdt");
 
   function cleanUrl(url) {
@@ -51,31 +56,56 @@
   function makeVimeoEmbedUrl(url) {
     const clean = cleanUrl(url);
 
-    if (/^https:\/\/player\.vimeo\.com\//.test(clean)) {
-      return clean;
-    }
+    if (/^https:\/\/player\.vimeo\.com\//.test(clean)) return clean;
 
     const match = clean.match(/vimeo\.com\/(?:video\/)?(\d+)/);
-
-    if (match && match[1]) {
-      return "https://player.vimeo.com/video/" + match[1];
-    }
+    if (match && match[1]) return "https://player.vimeo.com/video/" + match[1];
 
     return clean;
   }
 
   function normalizeVideoUrl(url) {
     const clean = cleanUrl(url);
-
-    if (clean.indexOf("vimeo.com") !== -1) {
-      return makeVimeoEmbedUrl(clean);
-    }
-
+    if (clean.indexOf("vimeo.com") !== -1) return makeVimeoEmbedUrl(clean);
     return clean;
   }
 
   function capitalize(value) {
     return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+
+  function getRegistrantLanguage() {
+    const raw =
+      document.getElementById("f250-registrant-language")?.textContent.trim().toLowerCase() || "";
+
+    if (raw.includes("spanish") || raw.includes("español") || raw.includes("espanol")) return "es";
+    if (raw.includes("portuguese") || raw.includes("português") || raw.includes("portugues")) return "pt";
+
+    return "en";
+  }
+
+  function applyRegistrantLanguageVisibility() {
+    const preferred = getRegistrantLanguage();
+
+    app.querySelectorAll(".f250-lang-spanish").forEach(function (el) {
+      el.style.display = preferred === "es" ? "" : "none";
+    });
+
+    app.querySelectorAll(".f250-lang-portuguese").forEach(function (el) {
+      el.style.display = preferred === "pt" ? "" : "none";
+    });
+
+    return preferred;
+  }
+
+  function isAllowedLanguage(language) {
+    const preferred = getRegistrantLanguage();
+
+    if (language === "en" || language === "audio-en") return true;
+    if ((language === "es" || language === "audio-es") && preferred === "es") return true;
+    if ((language === "pt" || language === "audio-pt") && preferred === "pt") return true;
+
+    return false;
   }
 
   function getMDTDateString(date) {
@@ -109,6 +139,8 @@
   }
 
   function getEventHour() {
+    if (typeof window.f250TestHour === "number") return window.f250TestHour;
+
     try {
       const parts = new Intl.DateTimeFormat("en-US", {
         timeZone: "America/Denver",
@@ -144,23 +176,23 @@
     const hour = getEventHour();
 
     if (liveBlock) return liveBlock;
-    if (status === "past") return "morning";
-    if (status === "future") return "morning";
+    if (status === "past" || status === "future") return "morning";
 
     if (hour < 14) return "morning";
     if (hour < 19) return "afternoon";
-
     return "evening";
   }
 
   function getDefaultLanguage() {
+    const preferred = getRegistrantLanguage();
     const stored = localStorage.getItem("f250-main-language");
-    if (stored && (videoMap[stored] || audioMap[stored])) return stored;
 
-    const htmlLang = document.documentElement.lang || "";
+    if (stored && isAllowedLanguage(stored) && (videoMap[stored] || audioMap[stored])) {
+      return stored;
+    }
 
-    if (htmlLang.toLowerCase().indexOf("es") === 0) return "es";
-    if (htmlLang.toLowerCase().indexOf("pt") === 0) return "audio-pt";
+    if (preferred === "es") return "es";
+    if (preferred === "pt") return "pt";
 
     return "en";
   }
@@ -213,6 +245,19 @@
       '<div class="f250-audio-player">' + html + "</div>";
   }
 
+  function getLanguageLabel(language) {
+    const labels = {
+      en: "English",
+      es: "Español",
+      pt: "Português",
+      "audio-en": "English Audio",
+      "audio-es": "Español Audio",
+      "audio-pt": "Português Audio"
+    };
+
+    return labels[language] || "English";
+  }
+
   function syncActiveButtons() {
     const liveBlock = getLiveBlock();
     const status = getSessionDateStatus();
@@ -240,7 +285,7 @@
       button.classList.toggle("completed", completed);
     });
 
-    languageButtons.forEach(function (button) {
+    streamButtons.forEach(function (button) {
       button.classList.toggle(
         "active",
         button.getAttribute("data-language") === currentLanguage
@@ -278,20 +323,37 @@
     showIframe(url);
   }
 
-  function getLanguageLabel(language) {
-    const labels = {
-      en: "English",
-      es: "Español",
-      "audio-en": "Audio English",
-      "audio-es": "Audio Español",
-      "audio-pt": "Audio Português"
-    };
+  function showTransitionMessage(nextBlock) {
+    const msg = document.getElementById("f250-transition-message");
+    if (!msg) return;
 
-    return labels[language] || "English";
+    msg.textContent =
+      capitalize(nextBlock) + " Session is now live. Updating stream...";
+
+    msg.style.display = "block";
+
+    setTimeout(function () {
+      msg.style.display = "none";
+    }, 5000);
   }
+
+  applyRegistrantLanguageVisibility();
 
   let currentTime = getDefaultTimeBlock();
   let currentLanguage = getDefaultLanguage();
+
+  streamButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      const lang = this.getAttribute("data-language") || "en";
+
+      if (!isAllowedLanguage(lang)) return;
+
+      currentLanguage = lang;
+      localStorage.setItem("f250-main-language", currentLanguage);
+      syncActiveButtons();
+      updatePlayer();
+    });
+  });
 
   timeButtons.forEach(function (button) {
     button.addEventListener("click", function () {
@@ -301,49 +363,19 @@
     });
   });
 
-  languageButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      currentLanguage = this.getAttribute("data-language") || "en";
-      localStorage.setItem("f250-main-language", currentLanguage);
-      syncActiveButtons();
-      updatePlayer();
-    });
-  });
-
-  function showTransitionMessage(nextBlock) {
-    const msg = document.getElementById("f250-transition-message");
-    if (!msg) return;
-
-    msg.textContent =
-      capitalize(nextBlock) +
-      " Session is now live. Updating stream...";
-
-    msg.style.display = "block";
-
-    setTimeout(function () {
-      msg.style.display = "none";
-    }, 5000);
-  }
-
-
-
   updateClock();
   updatePageState();
 
   let lastAutoBlock = getDefaultTimeBlock();
 
   setInterval(function () {
-
     updateClock();
     updatePageState();
 
     const currentAutoBlock = getDefaultTimeBlock();
+    const isVideoLanguage = !!videoMap[currentLanguage];
 
-    if (
-      (currentLanguage === "en" || currentLanguage === "es") &&
-      currentAutoBlock !== lastAutoBlock
-    ) {
-
+    if (isVideoLanguage && currentAutoBlock !== lastAutoBlock) {
       showTransitionMessage(currentAutoBlock);
 
       currentTime = currentAutoBlock;
@@ -356,7 +388,6 @@
     }
 
     syncActiveButtons();
-
   }, 60000);
 
   syncActiveButtons();
