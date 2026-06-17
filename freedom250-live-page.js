@@ -107,7 +107,7 @@
 
     if (liveBlock) return liveBlock;
 
-    if (status === "past") return "evening";
+    if (status === "past") return "morning";
     if (status === "future") return "morning";
 
     if (hour < 10) return "morning";
