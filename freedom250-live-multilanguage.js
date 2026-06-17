@@ -239,14 +239,47 @@
     }
   }
 
+  function getEventMinutes() {
+    if (typeof window.f250TestMinutes === "number") return window.f250TestMinutes;
+
+    try {
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Denver",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: false
+      }).formatToParts(new Date());
+
+      const hourPart = parts.find(function (part) {
+        return part.type === "hour";
+      });
+
+      const minutePart = parts.find(function (part) {
+        return part.type === "minute";
+      });
+
+      const hour = hourPart ? parseInt(hourPart.value, 10) : 9;
+      const minute = minutePart ? parseInt(minutePart.value, 10) : 0;
+
+      return hour * 60 + minute;
+    } catch (e) {
+      return 9 * 60;
+    }
+  }
+
   function getLiveBlock() {
     if (getSessionDateStatus() !== "today") return "";
 
-    const hour = getEventHour();
+    const minutes = getEventMinutes();
 
-    if (hour >= 7 && hour < 14) return "morning";
-    if (hour >= 14 && hour < 19) return "afternoon";
-    if (hour >= 19 && hour < 22) return "evening";
+    const morningStart = 7 * 60;
+    const afternoonStart = (14 * 60) - 5; // 1:55 PM
+    const eveningStart = (19 * 60) - 5;  // 6:55 PM
+    const eveningEnd = (22 * 60) + 15;  // 10:00 PM
+
+    if (minutes >= morningStart && minutes < afternoonStart) return "morning";
+    if (minutes >= afternoonStart && minutes < eveningStart) return "afternoon";
+    if (minutes >= eveningStart && minutes < eveningEnd) return "evening";
 
     return "";
   }
@@ -254,13 +287,14 @@
   function getDefaultTimeBlock() {
     const status = getSessionDateStatus();
     const liveBlock = getLiveBlock();
-    const hour = getEventHour();
+    const minutes = getEventMinutes();
 
     if (liveBlock) return liveBlock;
     if (status === "past" || status === "future") return "morning";
 
-    if (hour < 14) return "morning";
-    if (hour < 19) return "afternoon";
+    if (minutes < 14 * 60) return "morning";
+    if (minutes < 19 * 60) return "afternoon";
+
     return "evening";
   }
 
@@ -368,7 +402,7 @@
       if (status === "past") {
         completed = true;
       } else if (status === "today") {
-        if (!liveBlock && getEventHour() >= 22) {
+        if (!liveBlock && getEventMinutes() >= 22 * 60) {
           completed = true;
         } else if (liveBlock === "afternoon" && block === "morning") {
           completed = true;
