@@ -36,6 +36,38 @@
     return value.charAt(0).toUpperCase() + value.slice(1);
   }
 
+  function getMDTDateString(date) {
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/Denver",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).format(date);
+  }
+
+  function getSessionDateString() {
+    const dateEl = document.getElementById("f250-session-date");
+    if (!dateEl) return "";
+
+    const rawDate = dateEl.textContent.trim();
+    const parsed = new Date(rawDate);
+
+    if (isNaN(parsed.getTime())) return "";
+
+    return getMDTDateString(parsed);
+  }
+
+  function getSessionDateStatus() {
+    const todayMDT = getMDTDateString(new Date());
+    const sessionDate = getSessionDateString();
+
+    if (!sessionDate) return "today";
+    if (sessionDate < todayMDT) return "past";
+    if (sessionDate > todayMDT) return "future";
+
+    return "today";
+  }
+
   function getEventHour() {
     try {
       const parts = new Intl.DateTimeFormat("en-US", {
@@ -55,6 +87,10 @@
   }
 
   function getLiveBlock() {
+    if (getSessionDateStatus() !== "today") {
+      return "";
+    }
+
     const hour = getEventHour();
 
     if (hour >= 10 && hour < 14) return "morning";
@@ -65,12 +101,16 @@
   }
 
   function getDefaultTimeBlock() {
+    const status = getSessionDateStatus();
     const liveBlock = getLiveBlock();
     const hour = getEventHour();
 
     if (liveBlock) return liveBlock;
-    if (hour < 10) return "morning";
 
+    if (status === "past") return "evening";
+    if (status === "future") return "morning";
+
+    if (hour < 10) return "morning";
     return "evening";
   }
 
@@ -104,6 +144,7 @@
 
   function syncActiveButton(timeBlock) {
     const liveBlock = getLiveBlock();
+    const status = getSessionDateStatus();
 
     timeButtons.forEach(function (button) {
       const block = button.getAttribute("data-time");
@@ -113,12 +154,16 @@
 
       let completed = false;
 
-      if (!liveBlock && getEventHour() >= 22) {
+      if (status === "past") {
         completed = true;
-      } else if (liveBlock === "afternoon" && block === "morning") {
-        completed = true;
-      } else if (liveBlock === "evening" && (block === "morning" || block === "afternoon")) {
-        completed = true;
+      } else if (status === "today") {
+        if (!liveBlock && getEventHour() >= 22) {
+          completed = true;
+        } else if (liveBlock === "afternoon" && block === "morning") {
+          completed = true;
+        } else if (liveBlock === "evening" && (block === "morning" || block === "afternoon")) {
+          completed = true;
+        }
       }
 
       button.classList.toggle("completed", completed);
