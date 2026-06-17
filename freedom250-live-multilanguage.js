@@ -394,7 +394,7 @@
 
     timeButtons.forEach(function (button) {
       const block = button.getAttribute("data-time");
-      
+
       button.classList.toggle("active", !isAudioMode && block === currentTime);
       button.classList.toggle("live", block === liveBlock);
 
@@ -481,15 +481,20 @@
   let currentLanguage = getDefaultLanguage();
 
   streamButtons.forEach(function (button) {
+    
     button.addEventListener("click", function () {
       const lang = this.getAttribute("data-language") || "en";
 
       if (!isAllowedLanguage(lang)) return;
 
       currentLanguage = lang;
+
       if (!audioMap[currentLanguage]) {
         localStorage.setItem("f250-main-language", currentLanguage);
+      } else {
+        localStorage.removeItem("f250-main-language");
       }
+
       syncActiveButtons();
       updatePlayer();
     });
