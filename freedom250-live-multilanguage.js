@@ -310,13 +310,53 @@
     });
   });
 
+  function showTransitionMessage(nextBlock) {
+    const msg = document.getElementById("f250-transition-message");
+    if (!msg) return;
+
+    msg.textContent =
+      capitalize(nextBlock) +
+      " Session is now live. Updating stream...";
+
+    msg.style.display = "block";
+
+    setTimeout(function () {
+      msg.style.display = "none";
+    }, 5000);
+  }
+
+
+
   updateClock();
   updatePageState();
 
+  let lastAutoBlock = getDefaultTimeBlock();
+
   setInterval(function () {
+
     updateClock();
     updatePageState();
+
+    const currentAutoBlock = getDefaultTimeBlock();
+
+    if (
+      (currentLanguage === "en" || currentLanguage === "es") &&
+      currentAutoBlock !== lastAutoBlock
+    ) {
+
+      showTransitionMessage(currentAutoBlock);
+
+      currentTime = currentAutoBlock;
+      lastAutoBlock = currentAutoBlock;
+
+      setTimeout(function () {
+        syncActiveButtons();
+        updatePlayer();
+      }, 2000);
+    }
+
     syncActiveButtons();
+
   }, 60000);
 
   syncActiveButtons();
