@@ -1,4 +1,7 @@
 (function () {
+
+
+
   const app = document.getElementById("f250-live-app");
   if (!app) return;
 
@@ -30,10 +33,57 @@
   };
 
   const notes = {
-    morning: "Morning Session: Join the morning broadcast and devotional activities.",
-    afternoon: "Afternoon Session: Continue with the afternoon presentations, decrees, and services.",
-    evening: "Evening Session: Join the evening service and spiritual activities."
+    morning: t.morningNote,
+    afternoon: t.afternoonNote,
+    evening: t.eveningNote
   };
+
+  function getUiLanguage() {
+    const lang = (document.documentElement.lang || "en").toLowerCase();
+
+    if (lang.indexOf("es") === 0) return "es";
+    if (lang.indexOf("pt") === 0) return "pt";
+
+    return "en";
+  }
+
+  const uiText = {
+    en: {
+      morningNote: "Morning Session: Join the morning broadcast and devotional activities.",
+      afternoonNote: "Afternoon Session: Continue with the afternoon presentations, decrees, and services.",
+      eveningNote: "Evening Session: Join the evening service and spiritual activities.",
+      watchLive: "Watch Live",
+      watchReplays: "Watch Replays",
+      upcoming: "Upcoming Broadcast",
+      streamMissing: "Stream not available yet.",
+      streamInvalid: "The stream link is not valid.",
+      updating: "Session is now live. Updating stream..."
+    },
+    es: {
+      morningNote: "Sesión de la mañana: Acompáñenos en la transmisión de la mañana y las actividades devocionales.",
+      afternoonNote: "Sesión de la tarde: Continúe con las presentaciones, decretos y servicios de la tarde.",
+      eveningNote: "Sesión de la noche: Acompáñenos en el servicio y las actividades espirituales de la noche.",
+      watchLive: "Ver en vivo",
+      watchReplays: "Ver repeticiones",
+      upcoming: "Próxima transmisión",
+      streamMissing: "La transmisión aún no está disponible.",
+      streamInvalid: "El enlace de la transmisión no es válido.",
+      updating: "La sesión ya está en vivo. Actualizando transmisión..."
+    },
+    pt: {
+      morningNote: "Sessão da manhã: Acompanhe a transmissão da manhã e as atividades devocionais.",
+      afternoonNote: "Sessão da tarde: Continue com as apresentações, decretos e serviços da tarde.",
+      eveningNote: "Sessão da noite: Acompanhe o serviço e as atividades espirituais da noite.",
+      watchLive: "Assistir ao vivo",
+      watchReplays: "Assistir às gravações",
+      upcoming: "Próxima transmissão",
+      streamMissing: "A transmissão ainda não está disponível.",
+      streamInvalid: "O link da transmissão não é válido.",
+      updating: "A sessão já está ao vivo. Atualizando transmissão..."
+    }
+  };
+
+  const t = uiText[getUiLanguage()];
 
   const selectionLabel = document.getElementById("current-selection-label");
   const sessionNote = document.getElementById("session-note");
@@ -217,11 +267,11 @@
     if (!titleEl) return;
 
     if (status === "future") {
-      titleEl.textContent = "Upcoming Broadcast";
+      titleEl.textContent = t.upcoming;
     } else if (status === "past") {
-      titleEl.textContent = "Watch Replays";
+      titleEl.textContent = t.watchReplays;
     } else {
-      titleEl.textContent = "Watch Live";
+      titleEl.textContent = t.watchLive;
     }
   }
 
@@ -325,12 +375,12 @@
     const url = cleanUrl(videoMap[currentLanguage]?.[currentTime] || "");
 
     if (!url) {
-      showMessage("Stream not available yet.");
+      showMessage(t.streamMissing);
       return;
     }
 
     if (!isValidVideoUrl(url)) {
-      showMessage("The stream link is not valid.");
+      showMessage(t.streamInvalid);
       return;
     }
 
@@ -342,7 +392,7 @@
     if (!msg) return;
 
     msg.textContent =
-      capitalize(nextBlock) + " Session is now live. Updating stream...";
+      capitalize(nextBlock) + " " + t.updating;
 
     msg.style.display = "block";
 
