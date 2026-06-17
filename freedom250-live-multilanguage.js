@@ -486,7 +486,9 @@
       if (!isAllowedLanguage(lang)) return;
 
       currentLanguage = lang;
-      localStorage.setItem("f250-main-language", currentLanguage);
+      if (!audioMap[currentLanguage]) {
+        localStorage.setItem("f250-main-language", currentLanguage);
+      }
       syncActiveButtons();
       updatePlayer();
     });
@@ -495,6 +497,19 @@
   timeButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       currentTime = this.getAttribute("data-time") || "morning";
+
+      if (audioMap[currentLanguage]) {
+        const preferred = getRegistrantLanguage();
+
+        if (preferred === "es") {
+          currentLanguage = "es";
+        } else if (preferred === "pt") {
+          currentLanguage = "pt";
+        } else {
+          currentLanguage = "en";
+        }
+      }
+
       syncActiveButtons();
       updatePlayer();
     });
