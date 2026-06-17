@@ -32,12 +32,6 @@
     "audio-pt": document.getElementById("f250-audio-pt")?.innerHTML.trim() || ""
   };
 
-  const notes = {
-    morning: t.morningNote,
-    afternoon: t.afternoonNote,
-    evening: t.eveningNote
-  };
-
   function getUiLanguage() {
     const lang = (document.documentElement.lang || "en").toLowerCase();
 
@@ -84,6 +78,12 @@
   };
 
   const t = uiText[getUiLanguage()];
+
+  const notes = {
+    morning: t.morningNote,
+    afternoon: t.afternoonNote,
+    evening: t.eveningNote
+  };
 
   const selectionLabel = document.getElementById("current-selection-label");
   const sessionNote = document.getElementById("session-note");
