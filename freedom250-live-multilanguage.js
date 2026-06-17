@@ -394,7 +394,6 @@
 
     if (selectionLabel) {
       selectionLabel.textContent = timeLabels[uiLang][currentTime] + " • " + getLanguageLabel(currentLanguage);
-        
     }
 
     if (sessionNote) {
@@ -467,14 +466,25 @@
     });
   });
 
+  function syncAudioVisibility() {
+    const audioAccess = document.querySelector(".f250-audio-access");
+    if (!audioAccess) return;
+
+    const status = getSessionDateStatus();
+
+    audioAccess.style.display = status === "past" ? "none" : "";
+  }
+
   updateClock();
   updatePageState();
+  syncAudioVisibility();
 
   let lastAutoBlock = getDefaultTimeBlock();
 
   setInterval(function () {
     updateClock();
     updatePageState();
+    syncAudioVisibility();
 
     const currentAutoBlock = getDefaultTimeBlock();
     const isVideoLanguage = !!videoMap[currentLanguage];
