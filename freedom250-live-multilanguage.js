@@ -456,17 +456,18 @@
   }
 
   function showTransitionMessage(nextBlock) {
-    const msg = document.getElementById("f250-transition-message");
-    if (!msg) return;
+    const message = document.getElementById("f250-transition-message");
 
-    msg.textContent =
-      capitalize(nextBlock) + " " + t.updating;
+    if (!message) return;
 
-    msg.style.display = "block";
+    message.textContent =
+      capitalize(nextBlock) + " Session is now live. Updating stream...";
+
+    message.classList.add("show");
 
     setTimeout(function () {
-      msg.style.display = "none";
-    }, 5000);
+      message.classList.remove("show");
+    }, 4000);
   }
 
   applyRegistrantLanguageVisibility();
