@@ -126,10 +126,23 @@
 
   function getRegistrantLanguage() {
     const raw =
-      document.getElementById("f250-registrant-language")?.textContent.trim().toLowerCase() || "";
+      document.getElementById("f250-registrant-language")
+        ?.textContent.trim().toLowerCase() || "";
 
-    if (raw.includes("spanish") || raw.includes("español") || raw.includes("espanol")) return "es";
-    if (raw.includes("portuguese") || raw.includes("português") || raw.includes("portugues")) return "pt";
+    console.log("F250 Registrant Language:", raw);
+
+    if (
+      raw.includes("span") ||
+      raw.includes("espa")
+    ) {
+      return "es";
+    }
+
+    if (
+      raw.includes("portug")
+    ) {
+      return "pt";
+    }
 
     return "en";
   }
