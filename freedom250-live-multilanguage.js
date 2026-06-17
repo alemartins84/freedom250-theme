@@ -390,11 +390,12 @@
   function syncActiveButtons() {
     const liveBlock = getLiveBlock();
     const status = getSessionDateStatus();
+    const isAudioMode = !!audioMap[currentLanguage];
 
     timeButtons.forEach(function (button) {
       const block = button.getAttribute("data-time");
-
-      button.classList.toggle("active", block === currentTime);
+      
+      button.classList.toggle("active", !isAudioMode && block === currentTime);
       button.classList.toggle("live", block === liveBlock);
 
       let completed = false;
