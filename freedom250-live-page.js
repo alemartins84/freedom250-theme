@@ -54,11 +54,23 @@
     }
   }
 
-  function getDefaultTimeBlock() {
+  function getLiveBlock() {
     const hour = getEventHour();
 
-    if (hour < 14) return "morning";
-    if (hour < 19) return "afternoon";
+    if (hour >= 10 && hour < 14) return "morning";
+    if (hour >= 14 && hour < 19) return "afternoon";
+    if (hour >= 19 && hour < 22) return "evening";
+
+    return "";
+  }
+
+  function getDefaultTimeBlock() {
+    const liveBlock = getLiveBlock();
+    const hour = getEventHour();
+
+    if (liveBlock) return liveBlock;
+    if (hour < 10) return "morning";
+
     return "evening";
   }
 
@@ -91,7 +103,7 @@
   }
 
   function syncActiveButton(timeBlock) {
-    const liveBlock = getDefaultTimeBlock();
+    const liveBlock = getLiveBlock();
 
     timeButtons.forEach(function (button) {
       const block = button.getAttribute("data-time");
@@ -99,9 +111,15 @@
       button.classList.toggle("active", block === timeBlock);
       button.classList.toggle("live", block === liveBlock);
 
-      const completed =
-        (liveBlock === "afternoon" && block === "morning") ||
-        (liveBlock === "evening" && (block === "morning" || block === "afternoon"));
+      let completed = false;
+
+      if (!liveBlock && getEventHour() >= 22) {
+        completed = true;
+      } else if (liveBlock === "afternoon" && block === "morning") {
+        completed = true;
+      } else if (liveBlock === "evening" && (block === "morning" || block === "afternoon")) {
+        completed = true;
+      }
 
       button.classList.toggle("completed", completed);
     });
