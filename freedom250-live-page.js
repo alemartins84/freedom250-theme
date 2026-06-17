@@ -67,6 +67,44 @@
 
     return "today";
   }
+  function updatePageState() {
+  const status = getSessionDateStatus();
+
+  const titleEl = document.getElementById("f250-page-title");
+  const subtitleEl = document.getElementById("f250-page-subtitle");
+
+  if (!titleEl) return;
+
+  switch (status) {
+    case "future":
+      titleEl.textContent = "Upcoming Broadcast";
+
+      if (subtitleEl) {
+        subtitleEl.textContent =
+          "Broadcast begins at 10:00 AM MDT.";
+      }
+      break;
+
+    case "past":
+      titleEl.textContent = "Watch Replays";
+
+      if (subtitleEl) {
+        subtitleEl.textContent =
+          "Select a session below to watch the recordings.";
+      }
+      break;
+
+    default:
+      titleEl.textContent = "Watch Live";
+
+      if (subtitleEl) {
+        subtitleEl.textContent =
+          "Current MDT: " +
+          (mdtClock ? mdtClock.textContent : "") +
+          " • All times shown in Mountain Time.";
+      }
+  }
+}
 
   function getEventHour() {
     try {
@@ -206,7 +244,11 @@
   });
 
   updateClock();
-  setInterval(updateClock, 60000);
+  updatePageState();
+  setInterval(function () {
+    updateClock();
+    updatePageState();
+  }, 60000);
 
   syncActiveButton(currentTime);
   updatePlayer(currentTime);
