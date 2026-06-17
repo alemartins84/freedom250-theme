@@ -1,7 +1,5 @@
 (function () {
 
-
-
   const app = document.getElementById("f250-live-app");
   if (!app) return;
 
@@ -157,7 +155,9 @@
     }
 
     if (
-      raw.includes("portug")
+      raw.includes("portug") ||
+      raw.includes("portugu") ||
+      raw.includes("português")
     ) {
       return "pt";
     }
@@ -345,7 +345,7 @@
       en: "English",
       es: "Español",
       pt: "Português",
-      "audio-en": "English Audio",
+      "audio-en": "Listen Live",
       "audio-es": "Español Audio",
       "audio-pt": "Português Audio"
     };
@@ -436,6 +436,12 @@
   }
 
   applyRegistrantLanguageVisibility();
+
+  const preferredLanguage = getRegistrantLanguage();
+
+  if (preferredLanguage === "en") {
+    document.body.classList.add("f250-english-only");
+  }
 
   let currentTime = getDefaultTimeBlock();
   let currentLanguage = getDefaultLanguage();
