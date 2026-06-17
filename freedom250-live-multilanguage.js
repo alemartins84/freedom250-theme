@@ -231,6 +231,13 @@
   }
 
   function showIframe(url) {
+
+    const shell = document.querySelector(".f250-player-shell");
+
+    if (shell) {
+      shell.classList.remove("audio-mode");
+    }
+
     playerWrap.innerHTML =
       '<iframe id="f250-live-iframe" ' +
       'src="' + normalizeVideoUrl(url) + '" ' +
@@ -241,6 +248,13 @@
   }
 
   function showAudio(html) {
+
+    const shell = document.querySelector(".f250-player-shell");
+
+    if (shell) {
+      shell.classList.add("audio-mode");
+    }
+
     playerWrap.innerHTML =
       '<div class="f250-audio-player">' + html + "</div>";
   }
