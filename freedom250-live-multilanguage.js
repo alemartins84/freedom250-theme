@@ -85,6 +85,24 @@
     evening: t.eveningNote
   };
 
+  const timeLabels = {
+    en: {
+      morning: "Morning",
+      afternoon: "Afternoon",
+      evening: "Evening"
+    },
+    es: {
+      morning: "Mañana",
+      afternoon: "Tarde",
+      evening: "Noche"
+    },
+    pt: {
+      morning: "Manhã",
+      afternoon: "Tarde",
+      evening: "Noite"
+    }
+  };
+
   const selectionLabel = document.getElementById("current-selection-label");
   const sessionNote = document.getElementById("session-note");
   const timeButtons = app.querySelectorAll(".time-btn");
@@ -371,9 +389,12 @@
   }
 
   function updatePlayer() {
+
+    const uiLang = getUiLanguage();
+
     if (selectionLabel) {
-      selectionLabel.textContent =
-        capitalize(currentTime) + " • " + getLanguageLabel(currentLanguage);
+      selectionLabel.textContent = timeLabels[uiLang][currentTime] + " • " + getLanguageLabel(currentLanguage);
+        
     }
 
     if (sessionNote) {
