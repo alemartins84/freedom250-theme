@@ -287,10 +287,26 @@
   function getDefaultTimeBlock() {
     const status = getSessionDateStatus();
     const liveBlock = getLiveBlock();
-    const minutes = getEventMinutes();
+
+    if (status === "past") {
+      const savedTime = localStorage.getItem("f250-main-time-block");
+
+      if (
+        savedTime === "morning" ||
+        savedTime === "afternoon" ||
+        savedTime === "evening"
+      ) {
+        return savedTime;
+      }
+
+      return "morning";
+    }
 
     if (liveBlock) return liveBlock;
-    if (status === "past" || status === "future") return "morning";
+
+    if (status === "future") return "morning";
+
+    const minutes = getEventMinutes();
 
     if (minutes < 14 * 60) return "morning";
     if (minutes < 19 * 60) return "afternoon";
@@ -534,6 +550,10 @@
         } else {
           currentLanguage = "en";
         }
+      }
+
+      if (getSessionDateStatus() === "past") {
+        localStorage.setItem("f250-main-time-block", currentTime);
       }
 
       syncActiveButtons();
