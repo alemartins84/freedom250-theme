@@ -302,7 +302,11 @@
     const preferred = getRegistrantLanguage();
     const stored = localStorage.getItem("f250-main-language");
 
-    if (stored && isAllowedLanguage(stored) && (videoMap[stored] || audioMap[stored])) {
+    if (stored && audioMap[stored]) {
+      localStorage.removeItem("f250-main-language");
+    }
+
+    if (stored && isAllowedLanguage(stored) && videoMap[stored]) {
       return stored;
     }
 
