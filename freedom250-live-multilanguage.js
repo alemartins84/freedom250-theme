@@ -300,14 +300,19 @@
 
   function getDefaultLanguage() {
     const preferred = getRegistrantLanguage();
-    const stored = localStorage.getItem("f250-main-language");
+    const savedMode = localStorage.getItem("f250-main-player-mode");
+    const savedVideo = localStorage.getItem("f250-main-video-language");
 
-    if (stored && audioMap[stored]) {
-      localStorage.removeItem("f250-main-language");
+    if (savedMode === "audio") {
+      const audioLang = "audio-" + preferred;
+
+      if (isAllowedLanguage(audioLang) && audioMap[audioLang]) {
+        return audioLang;
+      }
     }
 
-    if (stored && isAllowedLanguage(stored) && videoMap[stored]) {
-      return stored;
+    if (savedVideo && isAllowedLanguage(savedVideo) && videoMap[savedVideo]) {
+      return savedVideo;
     }
 
     if (preferred === "es") return "es";
@@ -407,7 +412,7 @@
       if (status === "past") {
         completed = true;
       } else if (status === "today") {
-        if (!liveBlock && getEventMinutes() >= 22 * 60) {
+        if (!liveBlock && getEventMinutes() >= (22 * 60) + 15) {
           completed = true;
         } else if (liveBlock === "afternoon" && block === "morning") {
           completed = true;
@@ -440,8 +445,17 @@
     }
 
     if (audioMap[currentLanguage]) {
+
+      localStorage.setItem("f250-main-player-mode", "audio");
+
       showAudio(audioMap[currentLanguage]);
       return;
+
+    } else {
+
+      localStorage.setItem("f250-main-player-mode", "video");
+      localStorage.setItem("f250-main-video-language", currentLanguage);
+
     }
 
     const url = cleanUrl(videoMap[currentLanguage]?.[currentTime] || "");
@@ -494,10 +508,11 @@
 
       currentLanguage = lang;
 
-      if (!audioMap[currentLanguage]) {
-        localStorage.setItem("f250-main-language", currentLanguage);
+      if (audioMap[currentLanguage]) {
+        localStorage.setItem("f250-main-player-mode", "audio");
       } else {
-        localStorage.removeItem("f250-main-language");
+        localStorage.setItem("f250-main-player-mode", "video");
+        localStorage.setItem("f250-main-video-language", currentLanguage);
       }
 
       syncActiveButtons();
