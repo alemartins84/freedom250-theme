@@ -112,6 +112,26 @@
     return value.charAt(0).toUpperCase() + value.slice(1);
   }
 
+  function getRegistrantLanguage() {
+    const raw =
+      document.getElementById("f250-registrant-language")
+        ?.textContent.trim().toLowerCase() || "";
+
+    console.log("Essentials content language:", raw);
+
+    if (
+      raw.includes("spanish") ||
+      raw.includes("español") ||
+      raw.includes("espanol") ||
+      raw.includes("espa") ||
+      raw === "es"
+    ) {
+      return "es";
+    }
+
+    return "en";
+  }
+
   function getMDTDateString(date) {
     return new Intl.DateTimeFormat("en-CA", {
       timeZone: "America/Denver",
@@ -206,13 +226,7 @@
   }
 
   function getDefaultLanguage() {
-    const savedLanguage = localStorage.getItem("f250-essentials-video-language");
-
-    if (savedLanguage === "en" || savedLanguage === "es") {
-      return savedLanguage;
-    }
-
-    return getUiLanguage();
+    return getRegistrantLanguage();
   }
 
   function updateClock() {
@@ -324,8 +338,6 @@
       return;
     }
 
-    localStorage.setItem("f250-essentials-video-language", currentLanguage);
-
     if (getSessionDateStatus() === "past") {
       localStorage.setItem("f250-essentials-time-block", currentTime);
     }
@@ -350,6 +362,9 @@
 
   let currentTime = getDefaultTimeBlock();
   let currentLanguage = getDefaultLanguage();
+
+  console.log("Registrant Language:", getRegistrantLanguage());
+console.log("Current Language:", currentLanguage);
   let lastAutoBlock = currentTime;
 
   streamButtons.forEach(function (button) {
