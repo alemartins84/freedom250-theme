@@ -142,18 +142,48 @@
   }
 
   function getSessionDateString() {
+    const dateEl = document.getElementById("f250-session-date");
+    if (!dateEl) return "";
 
-    const raw =
-      document.getElementById("f250-session-date-iso")
-        ?.textContent.trim() || "";
+    const raw = dateEl.textContent.trim();
 
-    if (!raw) return "";
+    const englishDate = new Date(raw + " 12:00:00");
+    if (!isNaN(englishDate.getTime())) {
+      return getMDTDateString(englishDate);
+    }
 
-    const parsed = new Date(raw + "T12:00:00");
+    const monthsEs = {
+      enero: "01",
+      febrero: "02",
+      marzo: "03",
+      abril: "04",
+      mayo: "05",
+      junio: "06",
+      julio: "07",
+      agosto: "08",
+      septiembre: "09",
+      setiembre: "09",
+      octubre: "10",
+      noviembre: "11",
+      diciembre: "12"
+    };
 
-    if (isNaN(parsed.getTime())) return "";
+    const normalized = raw
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .trim();
 
-    return getMDTDateString(parsed);
+    const match = normalized.match(/^(\d{1,2}) de ([a-záéíóúñ]+) de (\d{4})$/);
+
+    if (match && monthsEs[match[2]]) {
+      const day = match[1].padStart(2, "0");
+      const month = monthsEs[match[2]];
+      const year = match[3];
+
+      return year + "-" + month + "-" + day;
+    }
+
+    return "";
   }
 
   function getSessionDateStatus() {
