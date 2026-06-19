@@ -112,10 +112,12 @@
   }
 
   function isValidVideoUrl(url) {
+    const clean = cleanUrl(url);
+
     return (
-      /^https:\/\/(www\.)?boxcast\.tv\/embed-app\.html/.test(url) ||
-      /^https:\/\/(player\.)?vimeo\.com\//.test(url) ||
-      /^https:\/\/vimeo\.com\//.test(url)
+      /^https:\/\/(www\.)?boxcast\.tv\/embed-app\.html/.test(clean) ||
+      /^https:\/\/(player\.)?vimeo\.com\//.test(clean) ||
+      /^https:\/\/vimeo\.com\//.test(clean)
     );
   }
 
@@ -128,6 +130,16 @@
     if (match && match[1]) return "https://player.vimeo.com/video/" + match[1];
 
     return clean;
+  }
+
+  function cleanUrl(url) {
+    const value = String(url || "")
+      .replace(/&amp;/g, "&")
+      .trim();
+
+    const match = value.match(/https:\/\/(?:www\.)?(?:boxcast\.tv\/embed-app\.html|player\.vimeo\.com\/video\/\d+|vimeo\.com\/\d+)[^\s"'<>]*/);
+
+    return match ? match[0] : value;
   }
 
   function normalizeVideoUrl(url) {
