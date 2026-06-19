@@ -142,10 +142,15 @@
   }
 
   function getSessionDateString() {
-    const dateEl = document.getElementById("f250-session-date");
-    if (!dateEl) return "";
 
-    const parsed = new Date(dateEl.textContent.trim());
+    const raw =
+      document.getElementById("f250-session-date-iso")
+        ?.textContent.trim() || "";
+
+    if (!raw) return "";
+
+    const parsed = new Date(raw + "T12:00:00");
+
     if (isNaN(parsed.getTime())) return "";
 
     return getMDTDateString(parsed);
