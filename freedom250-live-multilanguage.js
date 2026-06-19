@@ -108,14 +108,19 @@
   const mdtClock = document.getElementById("f250-current-mdt");
 
   function cleanUrl(url) {
-    return String(url || "").replace(/&amp;/g, "&").trim();
+    return String(url || "")
+      .replace(/&amp;/g, "&")
+      .replace(/&quot;/g, '"')
+      .replace(/&#039;/g, "'")
+      .trim();
   }
 
   function isValidVideoUrl(url) {
     const clean = cleanUrl(url);
 
     return (
-      /^https:\/\/(www\.)?boxcast\.tv\/embed-app\.html/.test(clean) ||
+      clean.indexOf("https://boxcast.tv/embed-app.html#") === 0 ||
+      clean.indexOf("https://www.boxcast.tv/embed-app.html#") === 0 ||
       /^https:\/\/(player\.)?vimeo\.com\//.test(clean) ||
       /^https:\/\/vimeo\.com\//.test(clean)
     );
@@ -132,15 +137,6 @@
     return clean;
   }
 
-  function cleanUrl(url) {
-    const value = String(url || "")
-      .replace(/&amp;/g, "&")
-      .trim();
-
-    const match = value.match(/https:\/\/(?:www\.)?(?:boxcast\.tv\/embed-app\.html|player\.vimeo\.com\/video\/\d+|vimeo\.com\/\d+)[^\s"'<>]*/);
-
-    return match ? match[0] : value;
-  }
 
   function normalizeVideoUrl(url) {
     const clean = cleanUrl(url);
