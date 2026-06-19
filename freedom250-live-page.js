@@ -173,7 +173,7 @@
     const morningStart = 10 * 60;
     const afternoonStart = (14 * 60) - 5;
     const eveningStart = (19 * 60) - 5;
-    const eveningEnd = (22 * 60) + 15;
+    const eveningEnd = 21 * 60;
 
     if (minutes >= morningStart && minutes < afternoonStart) return "morning";
     if (minutes >= afternoonStart && minutes < eveningStart) return "afternoon";
