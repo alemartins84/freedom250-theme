@@ -145,11 +145,19 @@
     const dateEl = document.getElementById("f250-session-date");
     if (!dateEl) return "";
 
-    const raw = dateEl.textContent.trim();
+    let raw = dateEl.textContent
+      .replace(/\s+/g, " ")
+      .trim();
 
-    const englishDate = new Date(raw + " 12:00:00");
-    if (!isNaN(englishDate.getTime())) {
-      return getMDTDateString(englishDate);
+    // Remove weekday before comma:
+    // Thursday, June 18, 2026
+    // jueves, 18 de junio de 2026
+    raw = raw.replace(/^[^,]+,\s*/, "");
+
+    const parsed = new Date(raw + " 12:00:00");
+
+    if (!isNaN(parsed.getTime())) {
+      return getMDTDateString(parsed);
     }
 
     const monthsEs = {
@@ -170,19 +178,17 @@
 
     const normalized = raw
       .toLowerCase()
-      .replace(/\s+/g, " ")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
       .trim();
 
-    const match = normalized.match(/^(\d{1,2}) de ([a-záéíóúñ]+) de (\d{4})$/);
+    const match = normalized.match(/^(\d{1,2}) de ([a-z]+) de (\d{4})$/);
 
     if (match && monthsEs[match[2]]) {
-      const day = match[1].padStart(2, "0");
-      const month = monthsEs[match[2]];
-      const year = match[3];
-
-      return year + "-" + month + "-" + day;
+      return match[3] + "-" + monthsEs[match[2]] + "-" + match[1].padStart(2, "0");
     }
 
+    console.log("Could not parse session date:", raw);
     return "";
   }
 
