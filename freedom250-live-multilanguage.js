@@ -384,6 +384,15 @@
 
     if (shell) {
       shell.classList.remove("audio-mode");
+      shell.classList.remove("replay-mode");
+
+      // Replay BoxCast embed with markers
+      if (
+        url &&
+        url.includes("layout=playlist-to-right")
+      ) {
+        shell.classList.add("replay-mode");
+      }
     }
 
     playerWrap.innerHTML =
