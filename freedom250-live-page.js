@@ -376,7 +376,6 @@
   }
 
   function syncAvailableTimeButtons() {
-
     const availableBlocks = [];
 
     ["morning", "afternoon", "evening"].forEach(function (block) {
@@ -385,17 +384,20 @@
 
       const hasUrl = cleanUrl(videoMap[currentLanguage]?.[block] || "");
 
-      button.style.display = hasUrl ? "" : "none";
-
       if (hasUrl) {
+        button.style.display = "";
+        button.disabled = false;
         availableBlocks.push(block);
+      } else {
+        button.style.display = "none";
+        button.disabled = true;
       }
     });
+
     if (!availableBlocks.includes(currentTime) && availableBlocks.length) {
       currentTime = availableBlocks[0];
     }
   }
-
   function syncActiveButtons() {
     const liveBlock = getLiveBlock();
     const status = getSessionDateStatus();
