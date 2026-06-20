@@ -269,7 +269,6 @@
     const end = getSessionEndMinutes();
 
     if (start === null || end === null) return "";
-
     if (minutes < start || minutes > end) return "";
 
     const availableBlocks = ["morning", "afternoon", "evening"].filter(function (block) {
@@ -278,16 +277,23 @@
 
     if (!availableBlocks.length) return "";
 
-    if (availableBlocks.length === 1) return availableBlocks[0];
+    const afternoonStart = (14 * 60) - 5; // 1:55 PM
+    const eveningStart = (19 * 60) - 5;   // 6:55 PM
 
-    const afternoonStart = (14 * 60) - 5;
-    const eveningStart = (19 * 60) - 5;
+    if (minutes >= eveningStart && availableBlocks.includes("evening")) {
+      return "evening";
+    }
 
-    if (minutes >= eveningStart && availableBlocks.includes("evening")) return "evening";
-    if (minutes >= afternoonStart && availableBlocks.includes("afternoon")) return "afternoon";
+    if (minutes >= afternoonStart && availableBlocks.includes("afternoon")) {
+      return "afternoon";
+    }
+
+    if (availableBlocks.includes("morning")) {
+      return "morning";
+    }
 
     return availableBlocks[0];
-  }
+}
   
 
   function getDefaultTimeBlock() {
@@ -370,6 +376,9 @@
   }
 
   function syncAvailableTimeButtons() {
+
+    const availableBlocks = [];
+
     ["morning", "afternoon", "evening"].forEach(function (block) {
       const button = app.querySelector('[data-time="' + block + '"]');
       if (!button) return;
@@ -377,7 +386,14 @@
       const hasUrl = cleanUrl(videoMap[currentLanguage]?.[block] || "");
 
       button.style.display = hasUrl ? "" : "none";
+
+      if (hasUrl) {
+        availableBlocks.push(block);
+      }
     });
+    if (!availableBlocks.includes(currentTime) && availableBlocks.length) {
+      currentTime = availableBlocks[0];
+    }
   }
 
   function syncActiveButtons() {
