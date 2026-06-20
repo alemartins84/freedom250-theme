@@ -226,44 +226,93 @@
     }
   }
 
+  function parseTimeToMinutes(value) {
+    if (!value) return null;
+
+    const clean = String(value).replace(/\s+/g, " ").trim();
+
+    const match = clean.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+
+    if (!match) {
+      console.log("Could not parse session time:", clean);
+      return null;
+    }
+
+    let hour = parseInt(match[1], 10);
+    const minute = parseInt(match[2], 10);
+    const ampm = match[3].toUpperCase();
+
+    if (ampm === "PM" && hour !== 12) hour += 12;
+    if (ampm === "AM" && hour === 12) hour = 0;
+
+    return hour * 60 + minute;
+  }
+
+  function getSessionStartMinutes() {
+    return parseTimeToMinutes(
+      document.getElementById("f250-session-start-time")?.textContent || ""
+    );
+  }
+
+  function getSessionEndMinutes() {
+    return parseTimeToMinutes(
+      document.getElementById("f250-session-end-time")?.textContent || ""
+    );
+  }
+
+
   function getLiveBlock() {
     if (getSessionDateStatus() !== "today") return "";
 
     const minutes = getEventMinutes();
+    const start = getSessionStartMinutes();
+    const end = getSessionEndMinutes();
 
-    const morningStart = 10 * 60;
+    if (start === null || end === null) return "";
+
+    if (minutes < start || minutes > end) return "";
+
+    const availableBlocks = ["morning", "afternoon", "evening"].filter(function (block) {
+      return cleanUrl(videoMap[currentLanguage]?.[block] || "");
+    });
+
+    if (!availableBlocks.length) return "";
+
+    if (availableBlocks.length === 1) return availableBlocks[0];
+
     const afternoonStart = (14 * 60) - 5;
     const eveningStart = (19 * 60) - 5;
-    const eveningEnd = 21 * 60;
 
-    if (minutes >= morningStart && minutes < afternoonStart) return "morning";
-    if (minutes >= afternoonStart && minutes < eveningStart) return "afternoon";
-    if (minutes >= eveningStart && minutes < eveningEnd) return "evening";
+    if (minutes >= eveningStart && availableBlocks.includes("evening")) return "evening";
+    if (minutes >= afternoonStart && availableBlocks.includes("afternoon")) return "afternoon";
 
-    return "";
+    return availableBlocks[0];
   }
+  
 
   function getDefaultTimeBlock() {
     const status = getSessionDateStatus();
     const liveBlock = getLiveBlock();
 
+    const availableBlocks = ["morning", "afternoon", "evening"].filter(function (block) {
+      return cleanUrl(videoMap[getDefaultLanguage()]?.[block] || "");
+    });
+
+    if (!availableBlocks.length) return "morning";
+
     if (status === "past") {
       const savedTime = localStorage.getItem("f250-essentials-time-block");
-      if (savedTime === "morning" || savedTime === "afternoon" || savedTime === "evening") {
+
+      if (availableBlocks.includes(savedTime)) {
         return savedTime;
       }
-      return "morning";
+
+      return availableBlocks[0];
     }
 
     if (liveBlock) return liveBlock;
-    if (status === "future") return "morning";
 
-    const minutes = getEventMinutes();
-
-    if (minutes < 14 * 60) return "morning";
-    if (minutes < 19 * 60) return "afternoon";
-
-    return "evening";
+    return availableBlocks[0];
   }
 
   function getDefaultLanguage() {
@@ -320,6 +369,17 @@
       'frameborder="0"></iframe>';
   }
 
+  function syncAvailableTimeButtons() {
+    ["morning", "afternoon", "evening"].forEach(function (block) {
+      const button = app.querySelector('[data-time="' + block + '"]');
+      if (!button) return;
+
+      const hasUrl = cleanUrl(videoMap[currentLanguage]?.[block] || "");
+
+      button.style.display = hasUrl ? "" : "none";
+    });
+  }
+
   function syncActiveButtons() {
     const liveBlock = getLiveBlock();
     const status = getSessionDateStatus();
@@ -330,12 +390,14 @@
       button.classList.toggle("active", block === currentTime);
       button.classList.toggle("live", block === liveBlock);
 
+      const sessionEnd = getSessionEndMinutes();
+
       let completed = false;
 
       if (status === "past") {
         completed = true;
       } else if (status === "today") {
-        if (!liveBlock && getEventMinutes() >= (22 * 60) + 15) {
+        if (!liveBlock && sessionEnd !== null &&  getEventMinutes() > sessionEnd) {
           completed = true;
         } else if (liveBlock === "afternoon" && block === "morning") {
           completed = true;
@@ -360,7 +422,7 @@
 
     if (selectionLabel) {
       selectionLabel.textContent =
-        timeLabels[uiLang][currentTime] + " • " + languageLabels[currentLanguage];
+        timeLabels[uiLang][currentTime];
     }
 
     if (sessionNote) {
@@ -405,7 +467,7 @@
   let currentLanguage = getDefaultLanguage();
 
   console.log("Registrant Language:", getRegistrantLanguage());
-console.log("Current Language:", currentLanguage);
+  console.log("Current Language:", currentLanguage);
   let lastAutoBlock = currentTime;
 
   streamButtons.forEach(function (button) {
@@ -415,6 +477,7 @@ console.log("Current Language:", currentLanguage);
       if (lang !== "en" && lang !== "es") return;
 
       currentLanguage = lang;
+      syncAvailableTimeButtons();
       syncActiveButtons();
       updatePlayer();
     });
@@ -423,6 +486,7 @@ console.log("Current Language:", currentLanguage);
   timeButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       currentTime = this.getAttribute("data-time") || "morning";
+      syncAvailableTimeButtons();
       syncActiveButtons();
       updatePlayer();
     });
@@ -430,6 +494,7 @@ console.log("Current Language:", currentLanguage);
 
   updateClock();
   updatePageState();
+  syncAvailableTimeButtons();
   syncActiveButtons();
   updatePlayer();
 
@@ -446,6 +511,7 @@ console.log("Current Language:", currentLanguage);
       lastAutoBlock = currentAutoBlock;
 
       setTimeout(function () {
+        syncAvailableTimeButtons();
         syncActiveButtons();
         updatePlayer();
       }, 2000);
