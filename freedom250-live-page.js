@@ -389,7 +389,7 @@
         button.disabled = false;
         availableBlocks.push(block);
       } else {
-        button.style.display = "none";
+        button.style.setProperty("display", "none", "important");
         button.disabled = true;
       }
     });
