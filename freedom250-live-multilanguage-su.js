@@ -41,34 +41,34 @@
 
   const uiText = {
     en: {
-      morningNote: "Morning Session: Join the morning broadcast and devotional activities.",
-      afternoonNote: "Afternoon Session: Continue with the afternoon presentations, decrees, and services.",
-      eveningNote: "Evening Session: Join the evening service and spiritual activities.",
-      watchLive: "Watch Live",
-      watchReplays: "Watch Replays",
-      upcoming: "Upcoming Broadcast",
+      morningNote: "Morning Session: Morning decrees, lectures, workshops and self-reflection exercises.",
+      afternoonNote: "Afternoon Session: Lectures, group discussion, dictations and seminar activities.",
+      eveningNote: "Evening Session: Service, devotional activities and spiritual practices.",
+      watchLive: "Seminar Live",
+      watchReplays: "Seminar Replays",
+      upcoming: "Upcoming Seminar Broadcast",
       streamMissing: "Stream not available yet.",
       streamInvalid: "The stream link is not valid.",
       updating: "Session is now live. Updating stream..."
     },
     es: {
-      morningNote: "Sesión de la mañana: Acompáñenos en la transmisión de la mañana y las actividades devocionales.",
-      afternoonNote: "Sesión de la tarde: Continúe con las presentaciones, decretos y servicios de la tarde.",
-      eveningNote: "Sesión de la noche: Acompáñenos en el servicio y las actividades espirituales de la noche.",
-      watchLive: "Ver en vivo",
-      watchReplays: "Ver repeticiones",
-      upcoming: "Próxima transmisión",
+      morningNote: "Sesión de la mañana: Decretos matutinos, conferencias, talleres y ejercicios de autorreflexión.",
+      afternoonNote: "Sesión de la tarde: Conferencias, discusiones en grupo, dictados y actividades del seminario.",
+      eveningNote: "Sesión de la noche: Servicio, actividades devocionales y prácticas espirituales.",
+      watchLive: "Seminario en Vivo",
+      watchReplays: "Repeticiones del Seminario",
+      upcoming: "Próxima Transmisión del Seminario",
       streamMissing: "La transmisión aún no está disponible.",
       streamInvalid: "El enlace de la transmisión no es válido.",
       updating: "La sesión ya está en vivo. Actualizando transmisión..."
     },
     pt: {
-      morningNote: "Sessão da manhã: Acompanhe a transmissão da manhã e as atividades devocionais.",
-      afternoonNote: "Sessão da tarde: Continue com as apresentações, decretos e serviços da tarde.",
-      eveningNote: "Sessão da noite: Acompanhe o serviço e as atividades espirituais da noite.",
-      watchLive: "Assistir ao vivo",
-      watchReplays: "Assistir às gravações",
-      upcoming: "Próxima transmissão",
+      morningNote: "Sessão da manhã: Decretos matinais, palestras, workshops e exercícios de autorreflexão.",
+      afternoonNote: "Sessão da tarde: Palestras, discussões em grupo, ditados e atividades do seminário.",
+      eveningNote: "Sessão da noite: Serviço, atividades devocionais e práticas espirituais.",
+      watchLive: "Seminário ao Vivo",
+      watchReplays: "Reprises do Seminário",
+      upcoming: "Próxima Transmissão do Seminário",
       streamMissing: "A transmissão ainda não está disponível.",
       streamInvalid: "O link da transmissão não é válido.",
       updating: "A sessão já está ao vivo. Atualizando transmissão..."
@@ -338,10 +338,10 @@
 
     const minutes = getEventMinutes();
 
-    const morningStart = 7 * 60;
-    const afternoonStart = (14 * 60) - 5; // 1:55 PM
-    const eveningStart = (19 * 60) - 5;  // 6:55 PM
-    const eveningEnd = (22 * 60) + 15;  // 10:00 PM
+    const morningStart = (8 * 60) - 5;      // 7:55 AM
+    const afternoonStart = (13 * 60) + 25;  // 1:25 PM
+    const eveningStart = (19 * 60) - 5;     // 6:55 PM
+    const eveningEnd = (21 * 60) + 30;      // 9:30 PM
 
     if (minutes >= morningStart && minutes < afternoonStart) return "morning";
     if (minutes >= afternoonStart && minutes < eveningStart) return "afternoon";
@@ -355,7 +355,7 @@
     const liveBlock = getLiveBlock();
 
     if (status === "past") {
-      const savedTime = localStorage.getItem("f250-main-time-block");
+      const savedTime = localStorage.getItem("f250-su-time-block");
 
       if (
         savedTime === "morning" ||
@@ -374,16 +374,16 @@
 
     const minutes = getEventMinutes();
 
-    if (minutes < 14 * 60) return "morning";
-    if (minutes < 19 * 60) return "afternoon";
+    if (minutes < ((13 * 60) + 25)) return "morning";
+    if (minutes < ((19 * 60) - 5)) return "afternoon";
 
     return "evening";
   }
 
   function getDefaultLanguage() {
     const preferred = getRegistrantLanguage();
-    const savedMode = localStorage.getItem("f250-main-player-mode");
-    const savedVideo = localStorage.getItem("f250-main-video-language");
+    const savedMode = localStorage.getItem("f250-su-player-mode");
+    const savedVideo = localStorage.getItem("f250-su-video-language");
 
     if (savedMode === "audio") {
       const audioLang = "audio-" + preferred;
@@ -503,7 +503,7 @@
       if (status === "past") {
         completed = true;
       } else if (status === "today") {
-        if (!liveBlock && getEventMinutes() >= (22 * 60) + 15) {
+        if (!liveBlock && getEventMinutes() >= (21 * 60) + 30) {
           completed = true;
         } else if (liveBlock === "afternoon" && block === "morning") {
           completed = true;
@@ -537,15 +537,15 @@
 
     if (audioMap[currentLanguage]) {
 
-      localStorage.setItem("f250-main-player-mode", "audio");
+      localStorage.setItem("f250-su-player-mode", "audio");
 
       showAudio(audioMap[currentLanguage]);
       return;
 
     } else {
 
-      localStorage.setItem("f250-main-player-mode", "video");
-      localStorage.setItem("f250-main-video-language", currentLanguage);
+      localStorage.setItem("f250-su-player-mode", "video");
+      localStorage.setItem("f250-su-video-language", currentLanguage);
 
     }
 
@@ -569,8 +569,9 @@
 
     if (!message) return;
 
-    message.textContent =
-      capitalize(nextBlock) + " Session is now live. Updating stream...";
+    const label = timeLabels[getUiLanguage()][nextBlock];
+
+    message.textContent = label + " " + t.updating;
 
     message.classList.add("show");
 
@@ -600,10 +601,10 @@
       currentLanguage = lang;
 
       if (audioMap[currentLanguage]) {
-        localStorage.setItem("f250-main-player-mode", "audio");
+        localStorage.setItem("f250-su-player-mode", "audio");
       } else {
-        localStorage.setItem("f250-main-player-mode", "video");
-        localStorage.setItem("f250-main-video-language", currentLanguage);
+        localStorage.setItem("f250-su-player-mode", "video");
+        localStorage.setItem("f250-su-video-language", currentLanguage);
       }
 
       syncActiveButtons();
@@ -628,7 +629,7 @@
       }
 
       if (getSessionDateStatus() === "past") {
-        localStorage.setItem("f250-main-time-block", currentTime);
+        localStorage.setItem("f250-su-time-block", currentTime);
       }
 
       syncActiveButtons();
