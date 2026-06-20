@@ -463,8 +463,9 @@
     }, 4000);
   }
 
-  let currentTime = getDefaultTimeBlock();
+  
   let currentLanguage = getDefaultLanguage();
+  let currentTime = getDefaultTimeBlock();
 
   console.log("Registrant Language:", getRegistrantLanguage());
   console.log("Current Language:", currentLanguage);
